@@ -524,6 +524,10 @@ function ExpenseTab() {
         </div>
       </div>
 
+      <div className="mb-6 text-center">
+        <p className="text-xs font-bold text-sky-400 italic">“ 日本是免稅，不是免費！ ” 💸</p>
+      </div>
+
       <form onSubmit={addExpense} className="space-y-3 mb-8">
         <div className="flex gap-2">
           <div className="relative flex-1">
