@@ -380,19 +380,26 @@ function InfoTab() {
 // --- 5. 分頁元件：記帳表 (含台幣換算 + 持久化) ---
 function ExpenseTab() {
   const [expenses, setExpenses] = useState<{id: number, desc: string, amount: number}[]>(() => {
-    // 需求: 從 LocalStorage 讀取資料
     const saved = localStorage.getItem('okinawa_expenses');
     return saved ? JSON.parse(saved) : [];
   });
+  
+  const [exchangeRate, setExchangeRate] = useState<number>(() => {
+    const saved = localStorage.getItem('okinawa_exchange_rate');
+    return saved ? Number(saved) : 0.215;
+  });
+
   const [desc, setDesc] = useState('');
   const [amount, setAmount] = useState('');
-  
-  const exchangeRate = 0.215;
+  const [isEditingRate, setIsEditingRate] = useState(false);
 
-  // 需求: 當資料變動時存入 LocalStorage
   useEffect(() => {
     localStorage.setItem('okinawa_expenses', JSON.stringify(expenses));
   }, [expenses]);
+
+  useEffect(() => {
+    localStorage.setItem('okinawa_exchange_rate', exchangeRate.toString());
+  }, [exchangeRate]);
 
   const addExpense = (e: React.FormEvent) => {
     e.preventDefault();
@@ -411,8 +418,31 @@ function ExpenseTab() {
 
   return (
     <div className="pb-28 pt-6 max-w-md mx-auto px-6">
-      <h1 className="text-3xl font-black text-sky-900 mb-6 tracking-tight">夏日錢包</h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-3xl font-black text-sky-900 tracking-tight">旅行記帳</h1>
+        <button 
+          onClick={() => setIsEditingRate(!isEditingRate)}
+          className="text-[10px] font-bold bg-sky-100 text-sky-600 px-3 py-1.5 rounded-full active:scale-95 transition-transform"
+        >
+          {isEditingRate ? '完成設定' : `匯率: ${exchangeRate}`}
+        </button>
+      </div>
       
+      {isEditingRate && (
+        <div className="mb-6 p-4 bg-white rounded-2xl border border-sky-100 shadow-sm animate-in fade-in slide-in-from-top-2">
+          <label className="block text-[10px] font-black text-sky-400 uppercase tracking-widest mb-2">設定日幣匯率 (台銀賣出價參考)</label>
+          <div className="flex gap-2">
+            <input 
+              type="number" 
+              step="0.001"
+              value={exchangeRate}
+              onChange={(e) => setExchangeRate(Number(e.target.value))}
+              className="flex-1 bg-sky-50 border border-sky-100 rounded-xl px-4 py-2 text-sm font-bold text-sky-900 focus:outline-none focus:ring-2 focus:ring-sky-400"
+            />
+          </div>
+        </div>
+      )}
+
       <div className="bg-gradient-to-br from-sky-500 to-blue-600 rounded-3xl p-6 text-white mb-6 shadow-lg relative overflow-hidden">
         <div className="absolute -right-4 -top-4 opacity-10 rotate-12"><Waves size={120} /></div>
         <p className="text-[10px] font-bold text-sky-100 mb-1 uppercase tracking-widest">Total Expenses (JPY)</p>
@@ -429,24 +459,29 @@ function ExpenseTab() {
         </div>
       </div>
 
-      <form onSubmit={addExpense} className="flex gap-2 mb-8">
+      <form onSubmit={addExpense} className="space-y-3 mb-8">
+        <div className="flex gap-2">
+          <div className="relative flex-1">
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sky-300 font-black text-lg">¥</span>
+            <input 
+              type="number" 
+              placeholder="金額" 
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              className="w-full bg-white border border-sky-100 rounded-2xl pl-10 pr-4 py-4 text-xl font-black text-sky-900 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 shadow-sm placeholder:text-sky-100"
+            />
+          </div>
+          <button type="submit" className="bg-sky-500 text-white px-6 rounded-2xl hover:bg-sky-600 active:scale-95 transition-all shadow-md flex items-center justify-center">
+            <Plus size={28} strokeWidth={3} />
+          </button>
+        </div>
         <input 
           type="text" 
-          placeholder="項目 (例: 冰淇淋)" 
+          placeholder="項目 (例: 蝦蝦飯、伴手禮)" 
           value={desc}
           onChange={(e) => setDesc(e.target.value)}
-          className="flex-1 bg-white border border-sky-100 rounded-2xl px-4 py-3 text-sm font-medium focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 shadow-sm"
+          className="w-full bg-white border border-sky-100 rounded-2xl px-5 py-3 text-sm font-medium focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 shadow-sm placeholder:text-stone-300"
         />
-        <input 
-          type="number" 
-          placeholder="金額" 
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          className="w-24 bg-white border border-sky-100 rounded-2xl px-4 py-3 text-sm font-medium focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 shadow-sm"
-        />
-        <button type="submit" className="bg-sky-500 text-white p-3 rounded-2xl hover:bg-sky-600 active:scale-95 transition-all shadow-md">
-          <Plus size={20} />
-        </button>
       </form>
 
       <div className="space-y-3">
@@ -502,7 +537,7 @@ export default function App() {
           </button>
           <button onClick={() => setActiveTab('expense')} className={`flex flex-col items-center gap-1 w-20 py-2 rounded-2xl transition-all duration-300 ${activeTab === 'expense' ? 'text-sky-600 bg-sky-50' : 'text-stone-300 hover:text-sky-400'}`}>
             <Wallet size={22} strokeWidth={activeTab === 'expense' ? 2.5 : 2} />
-            <span className="text-[10px] font-black tracking-widest">錢包</span>
+            <span className="text-[10px] font-black tracking-widest">記帳</span>
           </button>
         </div>
       </div>
