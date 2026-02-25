@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Map, Info, Wallet, MapPin, Navigation, Phone, Plane, Home, Car, Sun, Cloud, Receipt, Plus, Trash2, Waves, Palmtree } from 'lucide-react';
 
-// --- 1. 專屬行程資料 (包含導遊標籤) ---
+// --- 1. 專屬行程資料 (包含導遊標籤、電話與氣象平均值) ---
+// 氣象資料來源：日本氣象廳 (JMA) 那霸觀測站 3 月份歷史平均氣溫 (約 16°C - 22°C)
 const mockItinerary = [
   {
     id: 'day1',
     dayLabel: 'Day 1',
     date: '2026-03-11',
     locationName: '那霸 / 北谷',
-    weather: { temp: '26°C', condition: '晴朗海風', icon: <Sun className="text-yellow-400" size={24} /> },
+    themeColor: 'rose', // 春櫻粉
+    weather: { temp: '21°C', condition: '涼爽舒適', icon: <Sun className="text-rose-400" size={24} /> },
     events: [
       { 
         id: 'd1e1', time: '15:55', title: '抵達那霸機場', type: 'transport', location: '那霸機場', 
@@ -17,6 +19,7 @@ const mockItinerary = [
       },
       { 
         id: 'd1e2', time: '17:30', title: 'ORIX 租車取車', type: 'transport', location: 'ORIX Rent-a-car Naha Airport', 
+        phone: '098-851-0543',
         description: '準備好台灣駕照、日文譯本、護照。我們這次租了兩台車！',
         tags: [
           { type: 'reservation', text: 'Honda 預約代號: 247162932' },
@@ -25,16 +28,19 @@ const mockItinerary = [
       },
       { 
         id: 'd1e3', time: '18:30', title: '民宿 Check in', type: 'hotel', location: 'CONDOMINIUM 紅-BIN-', 
+        phone: '090-9781-931',
         description: '先到民宿放行李休息一下。',
         tags: [{ type: 'tip', text: '地址: 7 Chome-9-33 Hiyagon' }]
       },
       { 
         id: 'd1e4', time: '19:00', title: '晚餐：北谷ダイニング ちゃぁぶ～', type: 'food', location: '北谷', 
+        phone: '050-5385-8401',
         description: '沖繩的第一餐！享受道地的沖繩料理。',
         tags: [{ type: 'food', text: '必點: 沖繩苦瓜炒蛋、海葡萄' }]
       },
       { 
         id: 'd1e5', time: '21:00', title: 'AEON 永旺夢樂城', type: 'activity', location: 'AEON Okinawa Rycom', 
+        phone: '098-930-0425',
         description: '吃飽後直接逛到關門！',
         tags: [{ type: 'shopping', text: '必逛: 超市買宵夜水果' }]
       }
@@ -45,11 +51,13 @@ const mockItinerary = [
     dayLabel: 'Day 2',
     date: '2026-03-12',
     locationName: '那霸市區',
-    weather: { temp: '27°C', condition: '熱情陽光', icon: <Sun className="text-yellow-500" size={24} /> },
+    themeColor: 'emerald', // 薄荷綠
+    weather: { temp: '22°C', condition: '晴朗', icon: <Sun className="text-emerald-400" size={24} /> },
     events: [
       { id: 'd2e1', time: '09:00', title: '起床準備', type: 'hotel', location: '民宿', description: '09:00 起床，預計 10:00 出門。' },
       { 
         id: 'd2e2', time: '11:00', title: '波上宮', type: 'activity', location: '波上宮', 
+        phone: '098-868-3697',
         description: '沖繩八社之首，建在海邊懸崖上的美麗神社。',
         tags: [{ type: 'tip', text: '注意：附近要找停車場！' }, { type: 'shopping', text: '必買: 書包御守' }]
       },
@@ -60,10 +68,11 @@ const mockItinerary = [
       },
       { 
         id: 'd2e4', time: '19:00', title: '晚餐：YAMASHiRO 豬排', type: 'food', location: 'とんかつレストランYAMASHiRO 首里店', 
+        phone: '098-917-6340',
         description: '搭電車前往首里吃超人氣炸豬排。',
         tags: [{ type: 'food', text: '必點: 頂級黑豚炸豬排定食' }]
       },
-      { id: 'd2e5', time: '21:00', title: 'AEON / 回家', type: 'activity', location: 'AEON', description: '回家路上逛超商，今天要早點睡！' }
+      { id: 'd2e5', time: '21:00', title: 'AEON / 回家', type: 'activity', location: 'AEON', phone: '098-930-0425', description: '回家路上逛超商，今天要早點睡！' }
     ]
   },
   {
@@ -71,11 +80,13 @@ const mockItinerary = [
     dayLabel: 'Day 3',
     date: '2026-03-13',
     locationName: '北部地區',
-    weather: { temp: '25°C', condition: '碧海藍天', icon: <Waves className="text-cyan-400" size={24} /> },
+    themeColor: 'sky', // 湛藍海
+    weather: { temp: '20°C', condition: '海風稍強', icon: <Waves className="text-sky-400" size={24} /> },
     events: [
       { id: 'd3e1', time: '07:30', title: '早起出發', type: 'hotel', location: '民宿', description: '07:30 起床，08:30 出門前往北部。' },
       { 
         id: 'd3e2', time: '09:30', title: '古宇利海洋塔', type: 'activity', location: '古宇利島', 
+        phone: '0980-56-1616',
         description: '導航位置設定為停車場。可以去古宇利海灘走走，看跨海大橋。'
       },
       { 
@@ -90,15 +101,17 @@ const mockItinerary = [
       },
       { 
         id: 'd3e5', time: '14:00', title: '美麗海水族館', type: 'activity', location: '美麗海水族館', 
+        phone: '0980-48-3748',
         description: '14:00 前抵達。世界級的大型水族館。',
         tags: [{ type: 'tip', text: '15:00 有黑潮之海鯨鯊餵食秀！' }]
       },
       { 
         id: 'd3e6', time: '17:00', title: '許田休息站', type: 'food', location: '許田休息站', 
+        phone: '0980-54-0880',
         description: '回程順路休息。',
         tags: [{ type: 'food', text: '必吃: 現炸天婦羅' }]
       },
-      { id: 'd3e7', time: '21:00', title: 'MEGA唐吉軻德 宇流麻店', type: 'shopping', location: 'MEGA唐吉軻德 宇流麻店', description: '有空再去，晚上可以去居酒屋小酌。' }
+      { id: 'd3e7', time: '21:00', title: 'MEGA唐吉軻德 宇流麻店', type: 'shopping', location: 'MEGA唐吉軻德 宇流麻店', phone: '0570-054-511', description: '有空再去，晚上可以去居酒屋小酌。' }
     ]
   },
   {
@@ -106,11 +119,13 @@ const mockItinerary = [
     dayLabel: 'Day 4',
     date: '2026-03-14',
     locationName: '逛街 Day',
-    weather: { temp: '28°C', condition: '夏日炎炎', icon: <Sun className="text-yellow-500" size={24} /> },
+    themeColor: 'amber', // 向日葵黃
+    weather: { temp: '23°C', condition: '溫暖晴朗', icon: <Sun className="text-amber-400" size={24} /> },
     events: [
       { id: 'd4e1', time: '08:30', title: '起床準備', type: 'hotel', location: '民宿', description: '08:30 起床，09:30 出門。' },
       { 
         id: 'd4e2', time: '10:00', title: 'Parco City', type: 'shopping', location: 'Parco City', 
+        phone: '098-871-1120',
         description: '沖繩最大級海岸購物中心，逛街 DAY！'
       },
       { 
@@ -124,6 +139,7 @@ const mockItinerary = [
       },
       { 
         id: 'd4e5', time: '19:00', title: '晚餐：燒肉金城', type: 'food', location: '燒肉金城 北谷本店', 
+        phone: '098-926-1611',
         description: '晚餐吃石垣牛燒肉犒賞自己！',
         tags: [{ type: 'food', text: '必點: 特選石垣牛拼盤' }]
       }
@@ -134,10 +150,11 @@ const mockItinerary = [
     dayLabel: 'Day 5',
     date: '2026-03-15',
     locationName: '南部與賦歸',
-    weather: { temp: '25°C', condition: '清爽海風', icon: <Waves className="text-blue-400" size={24} /> },
+    themeColor: 'indigo', // 薰衣草紫
+    weather: { temp: '19°C', condition: '稍有雲量', icon: <Cloud className="text-indigo-400" size={24} /> },
     events: [
-      { id: 'd5e1', time: '09:30', title: '玉泉洞', type: 'activity', location: '玉泉洞', description: '日本第二大鐘乳石洞，非常壯觀。' },
-      { id: 'd5e2', time: '11:30', title: 'ricoland Okinawa', type: 'shopping', location: 'ricoland Okinawa', description: '機車部品專賣店採買。' },
+      { id: 'd5e1', time: '09:30', title: '玉泉洞', type: 'activity', location: '玉泉洞', phone: '098-949-7421', description: '日本第二大鐘乳石洞，非常壯觀。' },
+      { id: 'd5e2', time: '11:30', title: 'ricoland Okinawa', type: 'shopping', location: 'ricoland Okinawa', phone: '098-943-3451', description: '機車部品專賣店採買。' },
       { 
         id: 'd5e3', time: '13:00', title: '瀨長島 & A&W漢堡', type: 'food', location: '瀨長島 Umikaji Terrace', 
         description: '純白色的希臘風建築，吃漢堡、看飛機起降。',
@@ -145,6 +162,7 @@ const mockItinerary = [
       },
       { 
         id: 'd5e4', time: '17:30', title: 'ORIX 還車', type: 'transport', location: 'ORIX Rent-a-car Naha Airport', 
+        phone: '098-851-0543',
         description: '17:30 前務必還車，記得先加滿油！'
       },
       { 
@@ -157,7 +175,7 @@ const mockItinerary = [
 ];
 
 // --- 2. 元件：行程卡片 ---
-function EventCard({ event }: { event: any, key?: any }) {
+function EventCard({ event, themeColor }: { event: any, themeColor: string, key?: any }) {
   const getIcon = () => {
     switch (event.type) {
       case 'food': return <span className="text-orange-500 text-xl">🍹</span>;
@@ -177,14 +195,27 @@ function EventCard({ event }: { event: any, key?: any }) {
     }
   };
 
+  const getThemeStyles = () => {
+    switch (themeColor) {
+      case 'rose': return { border: 'border-rose-100', iconBg: 'bg-rose-50', text: 'text-rose-900', nav: 'bg-rose-500 hover:bg-rose-600' };
+      case 'emerald': return { border: 'border-emerald-100', iconBg: 'bg-emerald-50', text: 'text-emerald-900', nav: 'bg-emerald-500 hover:bg-emerald-600' };
+      case 'sky': return { border: 'border-sky-100', iconBg: 'bg-sky-50', text: 'text-sky-900', nav: 'bg-sky-500 hover:bg-sky-600' };
+      case 'amber': return { border: 'border-amber-100', iconBg: 'bg-amber-50', text: 'text-amber-900', nav: 'bg-amber-500 hover:bg-amber-600' };
+      case 'indigo': return { border: 'border-indigo-100', iconBg: 'bg-indigo-50', text: 'text-indigo-900', nav: 'bg-indigo-500 hover:bg-indigo-600' };
+      default: return { border: 'border-sky-100', iconBg: 'bg-sky-50', text: 'text-sky-900', nav: 'bg-sky-500 hover:bg-sky-600' };
+    }
+  };
+
+  const styles = getThemeStyles();
+
   return (
-    <div className="bg-white rounded-3xl p-5 shadow-sm border border-sky-50 mb-4 relative overflow-hidden group active:scale-[0.98] transition-transform">
+    <div className={`bg-white rounded-3xl p-5 shadow-sm border ${styles.border} mb-4 relative overflow-hidden group active:scale-[0.98] transition-transform`}>
       <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${event.type === 'food' ? 'bg-orange-400' : event.type === 'hotel' ? 'bg-cyan-400' : event.type === 'transport' ? 'bg-blue-400' : 'bg-emerald-400'}`} />
       
       <div className="flex items-start gap-4 pl-2">
         <div className="flex flex-col items-center min-w-[48px]">
-          <span className="text-sm font-black text-sky-900 tracking-tight">{event.time}</span>
-          <div className="w-10 h-10 rounded-full bg-sky-50 flex items-center justify-center mt-2 shadow-inner">
+          <span className={`text-sm font-black ${styles.text} tracking-tight`}>{event.time}</span>
+          <div className={`w-10 h-10 rounded-full ${styles.iconBg} flex items-center justify-center mt-2 shadow-inner`}>
             {getIcon()}
           </div>
         </div>
@@ -193,12 +224,19 @@ function EventCard({ event }: { event: any, key?: any }) {
           <h3 className="text-lg font-bold text-stone-900 mb-1.5 leading-tight">{event.title}</h3>
           
           <div className="flex items-center gap-1.5 text-stone-400 mb-2.5">
-            <MapPin size={14} className="text-sky-300" />
+            <MapPin size={14} className="text-stone-300" />
             <span className="text-xs font-medium">{event.location}</span>
           </div>
           
           <p className="text-sm text-stone-600 leading-relaxed mb-3">{event.description}</p>
           
+          {event.phone && (
+            <div className="flex items-center gap-1.5 text-stone-500 mb-3 bg-stone-50 px-3 py-1.5 rounded-xl w-fit border border-stone-100">
+              <Phone size={12} className="text-stone-400" />
+              <span className="text-xs font-bold font-mono">車機電話: {event.phone}</span>
+            </div>
+          )}
+
           {event.tags && (
             <div className="flex flex-wrap gap-2 mb-3">
               {event.tags.map((tag: any, i: number) => (
@@ -215,7 +253,7 @@ function EventCard({ event }: { event: any, key?: any }) {
                 href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}`}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 px-4 py-2 bg-sky-500 rounded-xl text-xs font-bold text-white hover:bg-sky-600 transition-colors shadow-sm active:scale-95"
+                className={`inline-flex items-center gap-1.5 px-4 py-2 ${styles.nav} rounded-xl text-xs font-bold text-white transition-colors shadow-sm active:scale-95`}
               >
                 <Navigation size={14} /> 導航至此
               </a>
@@ -232,14 +270,36 @@ function ItineraryTab() {
   const [activeDayIdx, setActiveDayIdx] = useState(0);
   const activeDay = mockItinerary[activeDayIdx];
 
+  const getThemeBg = () => {
+    switch (activeDay.themeColor) {
+      case 'rose': return 'bg-rose-50/90';
+      case 'emerald': return 'bg-emerald-50/90';
+      case 'sky': return 'bg-sky-50/90';
+      case 'amber': return 'bg-amber-50/90';
+      case 'indigo': return 'bg-indigo-50/90';
+      default: return 'bg-sky-50/90';
+    }
+  };
+
+  const getGradient = () => {
+    switch (activeDay.themeColor) {
+      case 'rose': return 'from-rose-400 to-pink-500';
+      case 'emerald': return 'from-emerald-400 to-teal-500';
+      case 'sky': return 'from-sky-400 to-blue-500';
+      case 'amber': return 'from-amber-400 to-orange-500';
+      case 'indigo': return 'from-indigo-400 to-purple-500';
+      default: return 'from-sky-400 to-blue-500';
+    }
+  };
+
   return (
     <div className="pb-28 pt-6 max-w-md mx-auto">
       <div className="flex items-center justify-between px-6 mb-6">
-        <h1 className="text-3xl font-black text-sky-900 tracking-tight">2026 沖繩五天四夜 🚗</h1>
+        <h1 className="text-3xl font-black text-stone-900 tracking-tight">2026 沖繩五天四夜 🚗</h1>
         <Palmtree className="text-emerald-500" size={28} />
       </div>
       
-      <div className="sticky top-0 z-20 bg-sky-50/90 backdrop-blur-xl pt-2 pb-4 px-4 border-b border-sky-100 mb-6 shadow-sm">
+      <div className={`sticky top-0 z-20 ${getThemeBg()} backdrop-blur-xl pt-2 pb-4 px-4 border-b border-white/50 mb-6 shadow-sm transition-colors duration-500`}>
         <div className="flex gap-3 overflow-x-auto scrollbar-hide px-2 pb-1">
           {mockItinerary.map((day, idx) => (
             <button
@@ -247,12 +307,12 @@ function ItineraryTab() {
               onClick={() => setActiveDayIdx(idx)}
               className={`flex flex-col items-center min-w-[76px] py-2.5 px-3 rounded-2xl transition-all duration-300 ${
                 activeDayIdx === idx 
-                  ? 'bg-sky-500 text-white shadow-md scale-105' 
-                  : 'bg-white text-sky-400 border border-sky-100 hover:bg-sky-50'
+                  ? 'bg-stone-900 text-white shadow-md scale-105' 
+                  : 'bg-white text-stone-400 border border-stone-100 hover:bg-stone-50'
               }`}
             >
               <span className="text-[11px] font-bold uppercase tracking-wider mb-1 opacity-80">{day.dayLabel}</span>
-              <span className={`text-sm font-black ${activeDayIdx === idx ? 'text-white' : 'text-sky-900'}`}>
+              <span className={`text-sm font-black ${activeDayIdx === idx ? 'text-white' : 'text-stone-800'}`}>
                 {day.date.split('-').slice(1).join('/')}
               </span>
             </button>
@@ -261,11 +321,11 @@ function ItineraryTab() {
       </div>
 
       <div className="px-5">
-        <div className="bg-gradient-to-br from-sky-400 to-blue-500 rounded-3xl p-5 mb-6 flex items-center justify-between shadow-md text-white">
+        <div className={`bg-gradient-to-br ${getGradient()} rounded-3xl p-5 mb-6 flex items-center justify-between shadow-md text-white transition-all duration-500`}>
           <div>
-            <p className="text-[10px] font-bold text-sky-100 mb-1 uppercase tracking-widest">SUMMER WEATHER</p>
+            <p className="text-[10px] font-bold text-white/80 mb-1 uppercase tracking-widest">MARCH WEATHER AVG.</p>
             <h2 className="text-xl font-black">{activeDay.locationName}</h2>
-            <p className="text-xs text-sky-100 mt-0.5">{activeDay.weather.condition}</p>
+            <p className="text-xs text-white/80 mt-0.5">{activeDay.weather.condition}</p>
           </div>
           <div className="flex items-center gap-3">
             <span className="text-3xl font-black">{activeDay.weather.temp}</span>
@@ -277,9 +337,13 @@ function ItineraryTab() {
 
         <div className="space-y-2">
           {activeDay.events.map((event) => (
-            <EventCard key={event.id} event={event} />
+            <EventCard key={event.id} event={event} themeColor={activeDay.themeColor} />
           ))}
         </div>
+        
+        <p className="text-[10px] text-stone-400 text-center mt-8 px-4 leading-relaxed">
+          氣象來源：日本氣象廳 (JMA) 歷史平均數據。<br/>3 月沖繩早晚溫差大，建議採洋蔥式穿法。
+        </p>
       </div>
     </div>
   );
