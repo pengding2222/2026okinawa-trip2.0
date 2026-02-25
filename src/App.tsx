@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Map, Info, Wallet, MapPin, Navigation, Phone, Plane, Home, Car, Sun, Cloud, Receipt, Plus, Trash2, Waves, Palmtree } from 'lucide-react';
+import { Map, Info, Wallet, MapPin, Navigation, Phone, Plane, Home, Car, Sun, Cloud, Receipt, Plus, Trash2, Waves, Palmtree, CheckCircle2, Circle, ClipboardList, ExternalLink, AlertCircle } from 'lucide-react';
 
 // --- 1. 專屬行程資料 (包含導遊標籤、電話與氣象平均值) ---
 // 氣象資料來源：日本氣象廳 (JMA) 那霸觀測站 3 月份歷史平均氣溫 (約 16°C - 22°C)
@@ -358,9 +358,30 @@ function ItineraryTab() {
 function InfoTab() {
   return (
     <div className="pb-28 pt-6 max-w-md mx-auto px-6">
-      <h1 className="text-3xl font-black text-sky-900 mb-8 tracking-tight">旅行手冊</h1>
+      <h1 className="text-3xl font-black text-sky-900 mb-8 tracking-tight">旅行資訊</h1>
       
       <div className="space-y-6">
+        {/* VJW Reminder */}
+        <section>
+          <div className="bg-gradient-to-br from-rose-500 to-rose-600 rounded-3xl p-5 shadow-lg text-white relative overflow-hidden">
+            <div className="absolute -right-4 -top-4 opacity-10 rotate-12"><AlertCircle size={100} /></div>
+            <h2 className="text-lg font-black mb-2 flex items-center gap-2">
+              <AlertCircle size={20} /> 入境必看！VJW 提醒
+            </h2>
+            <p className="text-sm font-medium leading-relaxed mb-4 opacity-90">
+              Visit Japan Web (VJW) 必須在出發前填寫完成，並將產出的 <span className="font-black underline">QR Code 截圖備份</span>。入境時請直接出示截圖交由入境官掃描，可大幅縮短通關時間。
+            </p>
+            <a 
+              href="https://vjw-lp.digital.go.jp/zh-hant/" 
+              target="_blank" 
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 bg-white text-rose-600 px-4 py-2 rounded-xl text-xs font-black shadow-md active:scale-95 transition-transform"
+            >
+              前往 VJW 官方網站 <ExternalLink size={14} />
+            </a>
+          </div>
+        </section>
+
         <section>
           <h2 className="text-xs font-black text-sky-400 uppercase tracking-widest mb-3 flex items-center gap-2">
             <Plane size={14} /> 航班資訊
@@ -446,7 +467,224 @@ function InfoTab() {
   );
 }
 
-// --- 5. 分頁元件：記帳表 (含台幣換算 + 持久化) ---
+// --- 5. 分頁元件：行李檢查清單 ---
+const initialChecklist = [
+  {
+    category: '證件文件',
+    items: [
+      { id: 'c1-1', text: '護照（有效期限 6 個月以上）', checked: false },
+      { id: 'c1-2', text: '機票 / 電子機票', checked: false },
+      { id: 'c1-3', text: '住宿訂單', checked: false },
+      { id: 'c1-4', text: 'Visit Japan Web QR code', checked: false },
+      { id: 'c1-5', text: '旅遊保險文件', checked: false },
+      { id: 'c1-6', text: '租車預約資料', checked: false },
+      { id: 'c1-7', text: '國際駕照', checked: false },
+      { id: 'c1-8', text: '台灣駕照', checked: false },
+      { id: 'c1-9', text: '行程表（PDF / 截圖備份）', checked: false },
+      { id: 'c1-10', text: '護照影本（紙本 / 電子）', checked: false },
+    ]
+  },
+  {
+    category: '金錢與支付',
+    items: [
+      { id: 'c2-1', text: '日幣現金', checked: false },
+      { id: 'c2-2', text: '信用卡（Visa / Master）', checked: false },
+      { id: 'c2-3', text: '行動支付（Apple Pay / Google Pay）', checked: false },
+      { id: 'c2-4', text: '零錢包', checked: false },
+      { id: 'c2-5', text: '緊急備用現金', checked: false },
+    ]
+  },
+  {
+    category: '3C 與網路',
+    items: [
+      { id: 'c3-1', text: '手機', checked: false },
+      { id: 'c3-2', text: '充電器', checked: false },
+      { id: 'c3-3', text: '行動電源', checked: false },
+      { id: 'c3-4', text: '相機 / GoPro', checked: false },
+      { id: 'c3-5', text: '記憶卡', checked: false },
+      { id: 'c3-6', text: 'eSIM / WiFi 分享器', checked: false },
+      { id: 'c3-7', text: '延長線', checked: false },
+      { id: 'c3-8', text: 'USB 充電線', checked: false },
+      { id: 'c3-9', text: '車用手機架（自駕）', checked: false },
+      { id: 'c3-10', text: '車用 USB 充電器', checked: false },
+    ]
+  },
+  {
+    category: '衣物（3 月沖繩）',
+    items: [
+      { id: 'c4-1', text: '短袖 2 件', checked: false },
+      { id: 'c4-2', text: '薄長袖', checked: false },
+      { id: 'c4-3', text: '薄外套', checked: false },
+      { id: 'c4-4', text: '長褲', checked: false },
+      { id: 'c4-5', text: '睡衣', checked: false },
+      { id: 'c4-6', text: '內衣褲', checked: false },
+      { id: 'c4-7', text: '襪子', checked: false },
+      { id: 'c4-8', text: '帽子', checked: false },
+      { id: 'c4-9', text: '拖鞋', checked: false },
+      { id: 'c4-10', text: '舒適步行鞋', checked: false },
+    ]
+  },
+  {
+    category: '盥洗與個人用品',
+    items: [
+      { id: 'c5-1', text: '牙刷牙膏', checked: false },
+      { id: 'c5-2', text: '洗面乳', checked: false },
+      { id: 'c5-3', text: '刮鬍刀', checked: false },
+      { id: 'c5-4', text: '隱形眼鏡 / 藥水', checked: false },
+      { id: 'c5-5', text: '衛生紙 / 濕紙巾', checked: false },
+    ]
+  },
+  {
+    category: '藥品與健康',
+    items: [
+      { id: 'c6-1', text: '感冒藥', checked: false },
+      { id: 'c6-2', text: '止痛藥', checked: false },
+      { id: 'c6-3', text: '腸胃藥', checked: false },
+      { id: 'c6-4', text: '暈車藥', checked: false },
+      { id: 'c6-5', text: '過敏藥', checked: false },
+      { id: 'c6-6', text: 'OK 繃', checked: false },
+      { id: 'c6-7', text: '個人處方藥', checked: false },
+      { id: 'c6-8', text: '酒精', checked: false },
+      { id: 'c6-9', text: '口罩', checked: false },
+    ]
+  },
+  {
+    category: '沖繩旅遊加分小物',
+    items: [
+      { id: 'c7-1', text: '泳褲', checked: false },
+      { id: 'c7-2', text: '保濕乳', checked: false },
+      { id: 'c7-3', text: '環保購物袋', checked: false },
+      { id: 'c7-4', text: '行李秤', checked: false },
+      { id: 'c7-5', text: '頸枕', checked: false },
+    ]
+  }
+];
+
+function ChecklistTab() {
+  const [categories, setCategories] = useState(() => {
+    const saved = localStorage.getItem('okinawa_checklist');
+    return saved ? JSON.parse(saved) : initialChecklist;
+  });
+
+  const [newItemText, setNewItemText] = useState('');
+  const [activeCategory, setActiveCategory] = useState(categories[0]?.category || '');
+
+  useEffect(() => {
+    localStorage.setItem('okinawa_checklist', JSON.stringify(categories));
+  }, [categories]);
+
+  const toggleItem = (catName: string, itemId: string) => {
+    setCategories(categories.map((cat: any) => {
+      if (cat.category === catName) {
+        return {
+          ...cat,
+          items: cat.items.map((item: any) => 
+            item.id === itemId ? { ...item, checked: !item.checked } : item
+          )
+        };
+      }
+      return cat;
+    }));
+  };
+
+  const addItem = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newItemText.trim()) return;
+    
+    setCategories(categories.map((cat: any) => {
+      if (cat.category === activeCategory) {
+        return {
+          ...cat,
+          items: [...cat.items, { id: Date.now().toString(), text: newItemText, checked: false }]
+        };
+      }
+      return cat;
+    }));
+    setNewItemText('');
+  };
+
+  const deleteItem = (catName: string, itemId: string) => {
+    setCategories(categories.map((cat: any) => {
+      if (cat.category === catName) {
+        return {
+          ...cat,
+          items: cat.items.filter((item: any) => item.id !== itemId)
+        };
+      }
+      return cat;
+    }));
+  };
+
+  return (
+    <div className="pb-28 pt-6 max-w-md mx-auto px-6">
+      <h1 className="text-3xl font-black text-emerald-900 mb-6 tracking-tight">行李清單</h1>
+      
+      <form onSubmit={addItem} className="mb-8 space-y-3">
+        <div className="flex gap-2">
+          <select 
+            value={activeCategory}
+            onChange={(e) => setActiveCategory(e.target.value)}
+            className="bg-white border border-emerald-100 rounded-2xl px-3 py-3 text-xs font-bold text-emerald-800 focus:outline-none focus:ring-1 focus:ring-emerald-400 shadow-sm"
+          >
+            {categories.map((cat: any) => (
+              <option key={cat.category} value={cat.category}>{cat.category}</option>
+            ))}
+          </select>
+          <input 
+            type="text" 
+            placeholder="新增物品..." 
+            value={newItemText}
+            onChange={(e) => setNewItemText(e.target.value)}
+            className="flex-1 bg-white border border-emerald-100 rounded-2xl px-4 py-3 text-sm font-medium focus:outline-none focus:ring-1 focus:ring-emerald-400 shadow-sm placeholder:text-stone-300"
+          />
+          <button type="submit" className="bg-emerald-500 text-white p-3 rounded-2xl shadow-md active:scale-95 transition-transform">
+            <Plus size={20} strokeWidth={3} />
+          </button>
+        </div>
+      </form>
+
+      <div className="space-y-8">
+        {categories.map((cat: any) => (
+          <section key={cat.category}>
+            <h2 className="text-xs font-black text-emerald-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+              <ClipboardList size={14} /> {cat.category}
+            </h2>
+            <div className="bg-white rounded-3xl p-2 shadow-sm border border-emerald-50">
+              {cat.items.map((item: any) => (
+                <div 
+                  key={item.id} 
+                  className="flex items-center justify-between p-3 border-b border-emerald-50 last:border-0 group"
+                >
+                  <button 
+                    onClick={() => toggleItem(cat.category, item.id)}
+                    className="flex items-center gap-3 flex-1 text-left"
+                  >
+                    {item.checked ? (
+                      <CheckCircle2 size={20} className="text-emerald-500" />
+                    ) : (
+                      <Circle size={20} className="text-stone-200" />
+                    )}
+                    <span className={`text-sm font-bold transition-all ${item.checked ? 'text-stone-300 line-through' : 'text-stone-700'}`}>
+                      {item.text}
+                    </span>
+                  </button>
+                  <button 
+                    onClick={() => deleteItem(cat.category, item.id)}
+                    className="text-stone-200 hover:text-rose-500 p-1 transition-colors"
+                  >
+                    <Trash2 size={16} />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// --- 6. 分頁元件：記帳表 (含台幣換算 + 持久化) ---
 function ExpenseTab() {
   const [expenses, setExpenses] = useState<{id: number, desc: string, amount: number}[]>(() => {
     const saved = localStorage.getItem('okinawa_expenses');
@@ -599,21 +837,26 @@ export default function App() {
         {activeTab === 'itinerary' && <ItineraryTab />}
         {activeTab === 'info' && <InfoTab />}
         {activeTab === 'expense' && <ExpenseTab />}
+        {activeTab === 'checklist' && <ChecklistTab />}
       </main>
       
       <div className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-xl border-t border-sky-100 pb-safe z-50">
         <div className="max-w-md mx-auto flex justify-around items-center px-2 py-2">
-          <button onClick={() => setActiveTab('itinerary')} className={`flex flex-col items-center gap-1 w-20 py-2 rounded-2xl transition-all duration-300 ${activeTab === 'itinerary' ? 'text-sky-600 bg-sky-50' : 'text-stone-300 hover:text-sky-400'}`}>
-            <Map size={22} strokeWidth={activeTab === 'itinerary' ? 2.5 : 2} />
+          <button onClick={() => setActiveTab('itinerary')} className={`flex flex-col items-center gap-1 w-16 py-2 rounded-2xl transition-all duration-300 ${activeTab === 'itinerary' ? 'text-sky-600 bg-sky-50' : 'text-stone-300 hover:text-sky-400'}`}>
+            <Map size={20} strokeWidth={activeTab === 'itinerary' ? 2.5 : 2} />
             <span className="text-[10px] font-black tracking-widest">行程</span>
           </button>
-          <button onClick={() => setActiveTab('info')} className={`flex flex-col items-center gap-1 w-20 py-2 rounded-2xl transition-all duration-300 ${activeTab === 'info' ? 'text-sky-600 bg-sky-50' : 'text-stone-300 hover:text-sky-400'}`}>
-            <Info size={22} strokeWidth={activeTab === 'info' ? 2.5 : 2} />
-            <span className="text-[10px] font-black tracking-widest">手冊</span>
+          <button onClick={() => setActiveTab('info')} className={`flex flex-col items-center gap-1 w-16 py-2 rounded-2xl transition-all duration-300 ${activeTab === 'info' ? 'text-sky-600 bg-sky-50' : 'text-stone-300 hover:text-sky-400'}`}>
+            <Info size={20} strokeWidth={activeTab === 'info' ? 2.5 : 2} />
+            <span className="text-[10px] font-black tracking-widest">資訊</span>
           </button>
-          <button onClick={() => setActiveTab('expense')} className={`flex flex-col items-center gap-1 w-20 py-2 rounded-2xl transition-all duration-300 ${activeTab === 'expense' ? 'text-sky-600 bg-sky-50' : 'text-stone-300 hover:text-sky-400'}`}>
-            <Wallet size={22} strokeWidth={activeTab === 'expense' ? 2.5 : 2} />
+          <button onClick={() => setActiveTab('expense')} className={`flex flex-col items-center gap-1 w-16 py-2 rounded-2xl transition-all duration-300 ${activeTab === 'expense' ? 'text-sky-600 bg-sky-50' : 'text-stone-300 hover:text-sky-400'}`}>
+            <Wallet size={20} strokeWidth={activeTab === 'expense' ? 2.5 : 2} />
             <span className="text-[10px] font-black tracking-widest">記帳</span>
+          </button>
+          <button onClick={() => setActiveTab('checklist')} className={`flex flex-col items-center gap-1 w-16 py-2 rounded-2xl transition-all duration-300 ${activeTab === 'checklist' ? 'text-sky-600 bg-sky-50' : 'text-stone-300 hover:text-sky-400'}`}>
+            <ClipboardList size={20} strokeWidth={activeTab === 'checklist' ? 2.5 : 2} />
+            <span className="text-[10px] font-black tracking-widest">清單</span>
           </button>
         </div>
       </div>
