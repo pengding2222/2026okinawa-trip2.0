@@ -1,3 +1,8 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import React, { useState, useEffect } from 'react';
 import { Map, Info, Wallet, MapPin, Navigation, Phone, Plane, Home, Car, Sun, Cloud, Receipt, Plus, Trash2, Waves, Palmtree } from 'lucide-react';
 
@@ -510,13 +515,13 @@ function ExpenseTab() {
 
       <div className="bg-gradient-to-br from-sky-500 to-blue-600 rounded-3xl p-6 text-white mb-6 shadow-lg relative overflow-hidden">
         <div className="absolute -right-4 -top-4 opacity-10 rotate-12"><Waves size={120} /></div>
-        <p className="text-[10px] font-bold text-sky-100 mb-1 uppercase tracking-widest">Total Expenses (JPY)</p>
+        <p className="text-[10px] font-bold text-sky-100 mb-1 uppercase tracking-widest">總支出 (日幣 JPY)</p>
         <div className="flex items-baseline gap-1 mb-4">
           <span className="text-xl font-medium">¥</span>
           <span className="text-4xl font-black tracking-tighter">{totalJPY.toLocaleString()}</span>
         </div>
         <div className="pt-4 border-t border-white/20">
-          <p className="text-[10px] font-bold text-sky-100 mb-1 uppercase tracking-widest">Estimated TWD (Rate {exchangeRate})</p>
+          <p className="text-[10px] font-bold text-sky-100 mb-1 uppercase tracking-widest">預估台幣 (匯率 {exchangeRate})</p>
           <div className="flex items-baseline gap-1 text-yellow-300">
             <span className="text-sm font-medium">NT$</span>
             <span className="text-xl font-black">{totalTWD.toLocaleString()}</span>
