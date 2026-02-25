@@ -499,6 +499,7 @@ function ExpenseTab() {
             <input 
               type="number" 
               step="0.001"
+              inputMode="decimal"
               value={exchangeRate}
               onChange={(e) => setExchangeRate(Number(e.target.value))}
               className="flex-1 bg-sky-50 border border-sky-100 rounded-xl px-4 py-2 text-sm font-bold text-sky-900 focus:outline-none focus:ring-2 focus:ring-sky-400"
@@ -529,6 +530,8 @@ function ExpenseTab() {
             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sky-300 font-black text-lg">¥</span>
             <input 
               type="number" 
+              inputMode="numeric"
+              pattern="[0-9]*"
               placeholder="金額" 
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
