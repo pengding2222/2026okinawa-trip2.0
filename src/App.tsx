@@ -1,32 +1,73 @@
 import React, { useState } from 'react';
-import { Map, Info, Wallet, Clock, MapPin, Navigation, Phone, ExternalLink } from 'lucide-react';
+import { Map, Info, Wallet, MapPin, Navigation, Phone } from 'lucide-react';
 
-// --- 模擬資料 (行程內容) ---
+// --- 您的專屬沖繩行程資料 ---
 const mockItinerary = [
   {
     id: 'day1',
     dayLabel: 'Day 1',
-    date: '2026-05-01',
-    locationName: '那霸市區',
+    date: '2026-03-11',
+    locationName: '抵達與北谷',
     events: [
-      { id: 'e1', time: '10:00', title: '抵達那霸機場', type: 'transport', location: '那霸機場', description: '領取行李，準備搭乘單軌電車前往市區。' },
-      { id: 'e2', time: '11:30', title: '飯店寄放行李', type: 'hotel', location: '那霸國際通大和ROYNET飯店', description: '先寄放行李，輕裝逛街。' },
-      { id: 'e3', time: '12:30', title: '午餐：暖暮拉麵', type: 'food', location: '暖暮拉麵 那霸牧志店', description: '必吃排隊拉麵，建議提早排隊。' },
-      { id: 'e4', time: '14:00', title: '國際通逛街', type: 'activity', location: '國際通', description: '採買伴手禮、逛驚安殿堂。' },
-      { id: 'e5', time: '18:30', title: '晚餐：敘敘苑燒肉', type: 'food', location: '敘敘苑 沖繩浦添PARCO CITY店', description: '享受高級和牛燒肉，已預約 18:30。' }
+      { id: 'd1e1', time: '15:55', title: '抵達那霸機場', type: 'transport', location: '那霸機場', description: '航班降落，不需要輸入車機也不用導航至此。' },
+      { id: 'd1e2', time: '17:30', title: 'ORIX 租車', type: 'transport', location: 'ORIX Rent-a-car Naha Airport', description: '取車 (地址: 1-1174 Toyosaki, Tomigusuku)' },
+      { id: 'd1e3', time: '18:30', title: '民宿 Check in', type: 'hotel', location: 'CONDOMINIUM 紅-BIN-', description: '地址: 7 Chome-9-33 Hiyagon' },
+      { id: 'd1e4', time: '19:00', title: '晚餐：北谷ダイニング ちゃぁぶ～', type: 'food', location: '北谷', description: '吃晚餐囉！' },
+      { id: 'd1e5', time: '21:00', title: 'AEON 永旺夢樂城', type: 'activity', location: 'AEON Okinawa Rycom', description: '直接逛到關門！' }
     ]
   },
   {
     id: 'day2',
     dayLabel: 'Day 2',
-    date: '2026-05-02',
-    locationName: '中部地區',
+    date: '2026-03-12',
+    locationName: '那霸市區',
     events: [
-      { id: 'e6', time: '09:00', title: 'OTS 租車取車', type: 'transport', location: 'OTS 租車 泊營業所', description: '攜帶駕照日文譯本、台灣駕照、護照。' },
-      { id: 'e7', time: '10:30', title: '美國村', type: 'activity', location: '美濱美國村', description: '充滿異國風情的購物區，適合拍照。' },
-      { id: 'e8', time: '12:30', title: '午餐：迴轉壽司', type: 'food', location: '迴轉壽司市場 美濱店', description: '新鮮平價的迴轉壽司。' },
-      { id: 'e9', time: '15:00', title: '萬座毛', type: 'activity', location: '萬座毛', description: '欣賞像大象鼻子的天然海蝕崖。' },
-      { id: 'e10', time: '17:30', title: '入住海景飯店', type: 'hotel', location: '蒙特利水療度假酒店', description: '享受無敵海景與飯店設施。' }
+      { id: 'd2e1', time: '09:00', title: '起床出門', type: 'hotel', location: '民宿', description: '09:00 起床，10:00 出門' },
+      { id: 'd2e2', time: '11:00', title: '波上宮', type: 'activity', location: '波上宮', description: '注意：要找停車場！' },
+      { id: 'd2e3', time: '13:00', title: '國際通 & 牧志市場', type: 'activity', location: '國際通', description: '車停國際通。逛街採買伴手禮，吃午餐 (花生豆腐、香檸汁、飯糰等)' },
+      { id: 'd2e4', time: '19:00', title: '晚餐：とんかつレストランYAMASHiRO', type: 'food', location: '首里店', description: '搭電車前往首里吃豬排' },
+      { id: 'd2e5', time: '21:00', title: 'AEON / 回家', type: 'activity', location: 'AEON', description: '回家路上逛超商，今天要早點睡！' }
+    ]
+  },
+  {
+    id: 'day3',
+    dayLabel: 'Day 3',
+    date: '2026-03-13',
+    locationName: '北部地區',
+    events: [
+      { id: 'd3e1', time: '07:30', title: '起床出門', type: 'hotel', location: '民宿', description: '07:30 起床，08:30 出門' },
+      { id: 'd3e2', time: '09:30', title: '古宇利海洋塔', type: 'activity', location: '古宇利島', description: '導航位置是停車場，去古宇利海灘走走' },
+      { id: 'd3e3', time: '11:30', title: '午餐：Kouri Shrimp 蝦蝦飯', type: 'food', location: '古宇利島', description: '11:00營業，預計12:30離開古宇利' },
+      { id: 'd3e4', time: '13:00', title: 'Shinmei Coffee', type: 'food', location: 'Shinmei Coffee', description: '買杯黑糖珍奶解解渴' },
+      { id: 'd3e5', time: '14:00', title: '美麗海水族館', type: 'activity', location: '美麗海水族館', description: '14:00 前抵達，15:00 看鯨鯊表演' },
+      { id: 'd3e6', time: '17:00', title: '許田休息站', type: 'food', location: '許田休息站', description: '好吃天婦羅，可以吃吃看' },
+      { id: 'd3e7', time: '21:00', title: 'MEGA唐吉軻德 宇流麻店', type: 'activity', location: 'MEGA唐吉軻德', description: '有空再去，晚上可以去居酒屋' }
+    ]
+  },
+  {
+    id: 'day4',
+    dayLabel: 'Day 4',
+    date: '2026-03-14',
+    locationName: '逛街 Day',
+    events: [
+      { id: 'd4e1', time: '08:30', title: '起床出門', type: 'hotel', location: '民宿', description: '08:30 起床，09:30 出門' },
+      { id: 'd4e2', time: '10:00', title: 'Parco City', type: 'activity', location: 'Parco City', description: '逛街 DAY！' },
+      { id: 'd4e3', time: '14:00', title: '港川外人住宅', type: 'activity', location: '港川外人住宅', description: '預計停留 1-1.5 小時離開' },
+      { id: 'd4e4', time: '16:00', title: '美國村', type: 'activity', location: '美國村', description: '逛街、看夕陽拍照' },
+      { id: 'd4e5', time: '19:00', title: '晚餐：燒肉金城', type: 'food', location: '燒肉金城', description: '晚餐吃燒肉' }
+    ]
+  },
+  {
+    id: 'day5',
+    dayLabel: 'Day 5',
+    date: '2026-03-15',
+    locationName: '南部與賦歸',
+    events: [
+      { id: 'd5e1', time: '09:30', title: '玉泉洞', type: 'activity', location: '玉泉洞', description: '爬文看逛多久' },
+      { id: 'd5e2', time: '11:30', title: 'ricoland Okinawa', type: 'activity', location: 'ricoland Okinawa', description: '機車部品店' },
+      { id: 'd5e3', time: '13:00', title: 'A&W漢堡 & 瀨長島', type: 'food', location: '瀨長島', description: '吃漢堡、看飛機' },
+      { id: 'd5e4', time: '17:30', title: 'ORIX 還車', type: 'transport', location: 'ORIX Rent-a-car Naha Airport', description: '17:30 前務必還車' },
+      { id: 'd5e5', time: '20:20', title: '搭機返台', type: 'transport', location: '那霸機場', description: '不需要輸入車機也不用導航至此，平安回家！' }
     ]
   }
 ];
@@ -59,9 +100,14 @@ function EventCard({ event }: { event: any }) {
           </div>
           <p className="text-sm text-stone-600 leading-relaxed">{event.description}</p>
           <div className="mt-3 flex gap-2">
-            <button className="flex items-center gap-1 px-3 py-1.5 bg-stone-100 rounded-full text-xs font-medium text-stone-700 hover:bg-stone-200 transition-colors">
-              <Navigation size={12} /> 導航
-            </button>
+            <a 
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}`}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-1 px-3 py-1.5 bg-stone-100 rounded-full text-xs font-medium text-stone-700 hover:bg-stone-200 transition-colors"
+            >
+              <Navigation size={12} /> Google 導航
+            </a>
           </div>
         </div>
       </div>
