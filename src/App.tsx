@@ -386,7 +386,7 @@ function ExpenseTab() {
   
   const [exchangeRate, setExchangeRate] = useState<number>(() => {
     const saved = localStorage.getItem('okinawa_exchange_rate');
-    return saved ? Number(saved) : 0.215;
+    return saved ? Number(saved) : 0.20;
   });
 
   const [desc, setDesc] = useState('');
