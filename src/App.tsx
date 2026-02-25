@@ -12,7 +12,7 @@ const mockItinerary = [
     events: [
       { 
         id: 'd1e1', time: '15:55', title: '抵達那霸機場', type: 'transport', location: '那霸機場', 
-        description: '搭乘 FD230 航班 (13:30起飛)。降落後不需要輸入車機也不用導航至此。',
+        description: '搭乘 FD230 航班 (13:30起飛)。',
         tags: [{ type: 'tip', text: '先去上個廁所再出關' }]
       },
       { 
@@ -149,7 +149,7 @@ const mockItinerary = [
       },
       { 
         id: 'd5e5', time: '20:20', title: '搭機返台 (CI123)', type: 'transport', location: '那霸機場', 
-        description: '結束美好的旅程！20:20 起飛，預計 21:00 抵達台灣。不需要輸入車機也不用導航至此。',
+        description: '結束美好的旅程！20:20 起飛，預計 21:00 抵達台灣。',
         tags: [{ type: 'tip', text: '免稅店最後採買機會' }]
       }
     ]
@@ -209,16 +209,18 @@ function EventCard({ event }: { event: any, key?: any }) {
             </div>
           )}
           
-          <div className="mt-2">
-            <a 
-              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}`}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-2 bg-sky-500 rounded-xl text-xs font-bold text-white hover:bg-sky-600 transition-colors shadow-sm active:scale-95"
-            >
-              <Navigation size={14} /> 導航至此
-            </a>
-          </div>
+          {event.location !== '那霸機場' && (
+            <div className="mt-2">
+              <a 
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}`}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 px-4 py-2 bg-sky-500 rounded-xl text-xs font-bold text-white hover:bg-sky-600 transition-colors shadow-sm active:scale-95"
+              >
+                <Navigation size={14} /> 導航至此
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -233,7 +235,7 @@ function ItineraryTab() {
   return (
     <div className="pb-28 pt-6 max-w-md mx-auto">
       <div className="flex items-center justify-between px-6 mb-6">
-        <h1 className="text-3xl font-black text-sky-900 tracking-tight">沖繩夏日祭</h1>
+        <h1 className="text-3xl font-black text-sky-900 tracking-tight">2026 沖繩五天四夜 🚗</h1>
         <Palmtree className="text-emerald-500" size={28} />
       </div>
       
