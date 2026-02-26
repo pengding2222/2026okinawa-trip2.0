@@ -301,7 +301,7 @@ function ItineraryTab() {
   return (
     <div className="pb-28">
       {/* 氛圍頂部 */}
-      <div className="relative h-36 overflow-hidden shadow-2xl">
+      <div className="relative h-48 overflow-hidden shadow-2xl">
         <img 
           src="https://picsum.photos/seed/okinawa/1080/720" 
           alt="Okinawa" 
@@ -710,7 +710,7 @@ function ChecklistTab() {
           <select 
             value={activeCategory}
             onChange={(e) => setActiveCategory(e.target.value)}
-            className="bg-white border border-stone-200 rounded-2xl px-3 py-3 text-xs font-black text-ai focus:outline-none focus:ring-2 focus:ring-shu/20 shadow-sm"
+            className="bg-white border border-stone-200 rounded-2xl px-3 py-3 text-base font-black text-ai focus:outline-none focus:ring-2 focus:ring-shu/20 shadow-sm"
           >
             {categories.map((cat: any) => (
               <option key={cat.category} value={cat.category}>{cat.category}</option>
@@ -721,7 +721,7 @@ function ChecklistTab() {
             placeholder="新增物品..." 
             value={newItemText}
             onChange={(e) => setNewItemText(e.target.value)}
-            className="flex-1 bg-white border border-stone-200 rounded-2xl px-5 py-3 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-shu/20 shadow-sm placeholder:text-stone-300"
+            className="flex-1 bg-white border border-stone-200 rounded-2xl px-5 py-3 text-base font-bold focus:outline-none focus:ring-2 focus:ring-shu/20 shadow-sm placeholder:text-stone-300"
           />
           <button type="submit" className="bg-shu text-white p-3 rounded-2xl shadow-lg active:scale-95 transition-transform">
             <Plus size={22} strokeWidth={3} />
@@ -818,7 +818,7 @@ function ExpenseTab() {
               inputMode="decimal"
               value={exchangeRate}
               onChange={(e) => setExchangeRate(Number(e.target.value))}
-              className="flex-1 bg-washi border border-stone-100 rounded-2xl px-5 py-3 text-sm font-black text-sumi focus:outline-none focus:ring-2 focus:ring-shu/20"
+              className="flex-1 bg-washi border border-stone-100 rounded-2xl px-5 py-3 text-base font-black text-sumi focus:outline-none focus:ring-2 focus:ring-shu/20"
             />
           </div>
         </div>
@@ -867,7 +867,7 @@ function ExpenseTab() {
           placeholder="項目 (例: 蝦蝦飯、伴手禮)" 
           value={desc}
           onChange={(e) => setDesc(e.target.value)}
-          className="w-full bg-white border border-stone-200 rounded-2xl px-6 py-4 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-shu/20 shadow-sm placeholder:text-stone-200"
+          className="w-full bg-white border border-stone-200 rounded-2xl px-6 py-4 text-base font-bold focus:outline-none focus:ring-2 focus:ring-shu/20 shadow-sm placeholder:text-stone-200"
         />
       </form>
 
