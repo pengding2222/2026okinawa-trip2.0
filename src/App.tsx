@@ -314,8 +314,8 @@ function ItineraryTab() {
             <span className="px-2 py-0.5 bg-shu text-white text-[9px] font-black rounded-full uppercase tracking-widest shadow-lg">Okinawa 2026</span>
             <span className="text-white/60 text-[9px] font-bold tracking-widest uppercase">Spring Journey</span>
           </div>
-          <h1 className="text-3xl font-serif font-black text-white tracking-tight mb-0.5">沖繩自駕之旅</h1>
-          <p className="text-white/70 text-xs font-medium">五天四夜海島假期</p>
+          <h1 className="text-3xl font-serif font-black text-white tracking-tight mb-0.5">沖繩自駕🇯🇵</h1>
+          <p className="text-white/70 text-xs font-medium">五天四夜🏝️</p>
         </div>
       </div>
 
