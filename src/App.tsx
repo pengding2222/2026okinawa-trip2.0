@@ -509,8 +509,8 @@ const initialChecklist = [
   {
     category: '衣物',
     items: [
-      { id: 'c4-1', text: '1. 身上穿一套', checked: false },
-      { id: 'c4-2', text: '2. 剩下全都去Shopping', checked: false },
+      { id: 'c4-1', text: '身上穿一套', checked: false },
+      { id: 'c4-2', text: '剩下全都去Shopping', checked: false },
     ]
   },
   {
@@ -548,9 +548,18 @@ const initialChecklist = [
   }
 ];
 
+const CHECKLIST_VERSION = '1.2'; // 更新此版本號以強制所有使用者更新清單
+
 function ChecklistTab() {
   const [categories, setCategories] = useState(() => {
     const saved = localStorage.getItem('okinawa_checklist');
+    const savedVersion = localStorage.getItem('okinawa_checklist_version');
+    
+    // 如果版本不符，強制重設為初始清單
+    if (savedVersion !== CHECKLIST_VERSION) {
+      return initialChecklist;
+    }
+    
     return saved ? JSON.parse(saved) : initialChecklist;
   });
 
@@ -559,6 +568,7 @@ function ChecklistTab() {
 
   useEffect(() => {
     localStorage.setItem('okinawa_checklist', JSON.stringify(categories));
+    localStorage.setItem('okinawa_checklist_version', CHECKLIST_VERSION);
   }, [categories]);
 
   const toggleItem = (catName: string, itemId: string) => {
