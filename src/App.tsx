@@ -215,38 +215,38 @@ function EventCard({ event, themeColor }: { event: any, themeColor: string, key?
   const styles = getThemeStyles();
 
   return (
-    <div className={`bg-white rounded-3xl p-6 shadow-xl border ${styles.border} mb-4 relative overflow-hidden group active:scale-[0.98] transition-all`}>
+    <div className={`bg-white rounded-2xl p-4 shadow-md border ${styles.border} mb-3 relative overflow-hidden group active:scale-[0.98] transition-all`}>
       <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${event.type === 'food' ? 'bg-orange-400' : event.type === 'hotel' ? 'bg-cyan-400' : event.type === 'transport' ? 'bg-blue-400' : 'bg-emerald-400'}`} />
       
-      <div className="flex items-start gap-5 pl-2">
-        <div className="flex flex-col items-center min-w-[52px]">
+      <div className="flex items-start gap-4 pl-1">
+        <div className="flex flex-col items-center min-w-[48px]">
           <span className={`text-sm font-serif font-black ${styles.text} tracking-tight`}>{event.time}</span>
-          <div className={`w-12 h-12 rounded-2xl ${styles.iconBg} flex items-center justify-center mt-3 shadow-inner`}>
+          <div className={`w-10 h-10 rounded-xl ${styles.iconBg} flex items-center justify-center mt-2 shadow-inner`}>
             {getIcon()}
           </div>
         </div>
         
         <div className="flex-1 pt-0.5">
-          <h3 className="text-xl font-serif font-black text-sumi mb-2 leading-tight">{event.title}</h3>
+          <h3 className="text-lg font-serif font-black text-sumi mb-1.5 leading-tight">{event.title}</h3>
           
-          <div className="flex items-center gap-2 text-stone-400 mb-3">
-            <MapPin size={14} className="text-stone-300" />
-            <span className="text-xs font-bold tracking-wide">{event.location}</span>
+          <div className="flex items-center gap-1.5 text-stone-400 mb-2">
+            <MapPin size={12} className="text-stone-300" />
+            <span className="text-[11px] font-bold tracking-wide">{event.location}</span>
           </div>
           
-          <p className="text-sm text-stone-600 leading-relaxed mb-4 font-medium">{event.description}</p>
+          <p className="text-xs text-stone-600 leading-relaxed mb-3 font-medium">{event.description}</p>
           
           {event.phone && (
-            <div className="flex items-center gap-2 text-ai mb-4 bg-ai/5 px-4 py-2 rounded-2xl w-fit border border-ai/10">
-              <Phone size={12} className="text-ai/60" />
-              <span className="text-xs font-black font-mono tracking-wider">車機電話: {event.phone}</span>
+            <div className="flex items-center gap-1.5 text-ai mb-3 bg-ai/5 px-3 py-1.5 rounded-xl w-fit border border-ai/10">
+              <Phone size={10} className="text-ai/60" />
+              <span className="text-[10px] font-black font-mono tracking-wider">車機電話: {event.phone}</span>
             </div>
           )}
 
           {event.tags && (
-            <div className="flex flex-wrap gap-2 mb-4">
+            <div className="flex flex-wrap gap-1.5 mb-3">
               {event.tags.map((tag: any, i: number) => (
-                <span key={i} className={`text-[10px] font-black px-3 py-1.5 rounded-lg border uppercase tracking-widest ${getTagStyle(tag.type)}`}>
+                <span key={i} className={`text-[9px] font-black px-2.5 py-1 rounded-md border uppercase tracking-widest ${getTagStyle(tag.type)}`}>
                   {tag.text}
                 </span>
               ))}
@@ -254,14 +254,14 @@ function EventCard({ event, themeColor }: { event: any, themeColor: string, key?
           )}
           
           {event.location !== '那霸機場' && (
-            <div className="mt-2">
+            <div className="mt-1">
               <a 
                 href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}`}
                 target="_blank"
                 rel="noreferrer"
-                className={`inline-flex items-center gap-2 px-5 py-2.5 ${styles.nav} rounded-2xl text-xs font-black text-white transition-all shadow-lg active:scale-95 uppercase tracking-widest`}
+                className={`inline-flex items-center gap-1.5 px-4 py-2 ${styles.nav} rounded-xl text-[10px] font-black text-white transition-all shadow-md active:scale-95 uppercase tracking-widest`}
               >
-                <Navigation size={14} /> 導航至此
+                <Navigation size={12} /> 導航至此
               </a>
             </div>
           )}
@@ -301,7 +301,7 @@ function ItineraryTab() {
   return (
     <div className="pb-28">
       {/* 氛圍頂部 */}
-      <div className="relative h-30 overflow-hidden shadow-2xl">
+      <div className="relative h-48 overflow-hidden shadow-2xl">
         <img 
           src="https://picsum.photos/seed/okinawa/1080/720" 
           alt="Okinawa" 
