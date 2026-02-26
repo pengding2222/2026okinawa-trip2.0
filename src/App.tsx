@@ -301,7 +301,7 @@ function ItineraryTab() {
   return (
     <div className="pb-28">
       {/* 氛圍頂部 */}
-      <div className="relative h-48 overflow-hidden shadow-2xl">
+      <div className="relative h-36 overflow-hidden shadow-2xl">
         <img 
           src="https://picsum.photos/seed/okinawa/1080/720" 
           alt="Okinawa" 
@@ -327,14 +327,14 @@ function ItineraryTab() {
               <button
                 key={day.id}
                 onClick={() => setActiveDayIdx(idx)}
-                className={`flex-shrink-0 snap-start w-16 h-20 rounded-2xl flex flex-col items-center justify-center transition-all duration-300 border-2 ${
+                className={`flex-shrink-0 snap-start w-16 h-20 rounded-2xl flex flex-col items-center justify-center transition-all duration-300 ${
                   activeDayIdx === idx 
-                    ? 'bg-white border-shu shadow-md scale-105' 
-                    : 'bg-white/60 backdrop-blur-sm border-transparent text-stone-400'
+                    ? 'bg-shu shadow-md scale-105 text-white' 
+                    : 'bg-white/60 backdrop-blur-sm text-stone-400'
                 }`}
               >
-                <span className={`text-[9px] font-black uppercase tracking-widest mb-1 ${activeDayIdx === idx ? 'text-shu' : ''}`}>{day.dayLabel}</span>
-                <span className={`text-lg font-serif font-black ${activeDayIdx === idx ? 'text-sumi' : ''}`}>{day.date.split('-')[2]}</span>
+                <span className={`text-[9px] font-black uppercase tracking-widest mb-1 ${activeDayIdx === idx ? 'text-white/90' : ''}`}>{day.dayLabel}</span>
+                <span className={`text-lg font-serif font-black ${activeDayIdx === idx ? 'text-white' : ''}`}>{day.date.split('-')[2]}</span>
               </button>
             ))}
           </div>
