@@ -28,8 +28,8 @@ const mockItinerary = [
         phone: '098-851-0543',
         description: '準備好台灣駕照、日文譯本、護照。我們這次租了兩台車！',
         tags: [
-          { type: 'reservation', text: 'Honda 預約代號: 247162932' },
-          { type: 'reservation', text: 'Toyota 預約代號: 247162570' }
+          { type: 'reservation', text: 'Honda Freed Hybrid: 247162932' },
+          { type: 'reservation', text: 'TOYOTA YARIS CROSS: 247162570' }
         ]
       },
       { 
@@ -89,7 +89,11 @@ const mockItinerary = [
     themeColor: 'sky', // 湛藍海
     weather: { temp: '20°C', condition: '海風稍強', icon: <Waves className="text-sky-400" size={24} /> },
     events: [
-      { id: 'd3e1', time: '07:30', title: '早起出發', type: 'hotel', location: '民宿', description: '07:30 起床，08:30 出門前往北部。' },
+      { 
+        id: 'd3e1', time: '07:30', title: '早起出發', type: 'hotel', location: '民宿', 
+        description: '07:30 起床，08:30 出門前往北部。強烈建議出門前查看導航，若高速公路大塞車請改走「國道58號」！',
+        tags: [{ type: 'tip', text: '⚠️ 北上高速公路大塞車預警' }]
+      },
       { 
         id: 'd3e2', time: '09:30', title: '古宇利海洋塔', type: 'activity', location: '古宇利島', 
         phone: '0980-56-1616',
@@ -114,8 +118,8 @@ const mockItinerary = [
       { 
         id: 'd3e6', time: '17:00', title: '許田休息站', type: 'food', location: '許田休息站', 
         phone: '0980-54-0880',
-        description: '回程順路休息。',
-        tags: [{ type: 'food', text: '必吃: 現炸天婦羅' }]
+        description: '回程順路休息。注意傍晚南下高速公路正值塞車高峰！',
+        tags: [{ type: 'food', text: '必吃: 現炸天婦羅' }, { type: 'tip', text: '⚠️ 留意南下塞車路況' }]
       },
       { id: 'd3e7', time: '21:00', title: 'MEGA唐吉軻德 宇流麻店', type: 'shopping', location: 'MEGA唐吉軻德 宇流麻店', phone: '0570-054-511', description: '有空再去，晚上可以去居酒屋小酌。' }
     ]
@@ -456,11 +460,11 @@ function InfoTab() {
             <h3 className="text-lg font-serif font-black text-sumi mb-4">ORIX Rent-a-car 那霸機場店</h3>
             <div className="space-y-3">
               <div className="flex justify-between items-center bg-sakura/30 p-4 rounded-2xl border border-sakura/50">
-                <span className="text-sm font-bold text-sumi">Honda 車輛</span>
+                <span className="text-sm font-bold text-sumi">Honda Freed Hybrid</span>
                 <span className="text-[10px] font-black text-shu bg-white px-3 py-1.5 rounded-lg shadow-sm">代號: 247162932</span>
               </div>
               <div className="flex justify-between items-center bg-sakura/30 p-4 rounded-2xl border border-sakura/50">
-                <span className="text-sm font-bold text-sumi">Toyota 車輛</span>
+                <span className="text-sm font-bold text-sumi">TOYOTA YARIS CROSS</span>
                 <span className="text-[10px] font-black text-shu bg-white px-3 py-1.5 rounded-lg shadow-sm">代號: 247162570</span>
               </div>
             </div>
