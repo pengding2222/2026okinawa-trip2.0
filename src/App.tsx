@@ -389,7 +389,7 @@ function InfoTab() {
           <div className="bg-shu rounded-2xl p-4 shadow-lg text-white relative overflow-hidden">
             <div className="absolute -right-2 -top-2 opacity-10 rotate-12"><AlertCircle size={80} /></div>
             <h2 className="text-lg font-serif font-black mb-2 flex items-center gap-1.5">
-              <AlertCircle size={18} /> 入境必看！VJW 提醒
+              <AlertCircle size={18} /> 提醒！
             </h2>
             <p className="text-xs font-medium leading-relaxed mb-4 opacity-90">
               Visit Japan Web (VJW) 必須在出發前填寫完成，並將產出的 <span className="font-black underline decoration-white/40 underline-offset-2">QR Code 截圖備份</span>。
