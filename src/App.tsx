@@ -301,7 +301,7 @@ function ItineraryTab() {
   return (
     <div className="pb-28">
       {/* 氛圍頂部 */}
-      <div className="relative h-48 overflow-hidden shadow-2xl">
+      <div className="relative h-30 overflow-hidden shadow-2xl">
         <img 
           src="https://picsum.photos/seed/okinawa/1080/720" 
           alt="Okinawa" 
