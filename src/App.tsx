@@ -560,17 +560,24 @@ function ChecklistItem({ item, catName, toggleItem, deleteItem }: any) {
       dragListener={false}
       dragControls={dragControls}
       className="flex items-center justify-between p-3 border-b border-emerald-50 last:border-0 group bg-white active:shadow-md transition-shadow"
+      style={{ touchAction: 'auto' }}
     >
       <div className="flex items-center gap-2 flex-1">
         <div 
-          className="cursor-grab active:cursor-grabbing text-stone-200 hover:text-emerald-300 transition-colors p-1"
-          onPointerDown={(e) => dragControls.start(e)}
+          className="cursor-grab active:cursor-grabbing text-stone-200 hover:text-emerald-300 transition-colors p-2 -ml-1"
+          onPointerDown={(e) => {
+            dragControls.start(e);
+          }}
           style={{ touchAction: 'none' }}
         >
-          <GripVertical size={16} />
+          <GripVertical size={18} />
         </div>
         <button
-          onClick={() => toggleItem(catName, item.id)}
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleItem(catName, item.id);
+          }}
+          onPointerDown={(e) => e.stopPropagation()}
           className="flex items-center gap-3 flex-1 text-left"
         >
           {item.checked ? (
@@ -584,8 +591,12 @@ function ChecklistItem({ item, catName, toggleItem, deleteItem }: any) {
         </button>
       </div>
       <button
-        onClick={() => deleteItem(catName, item.id)}
-        className="text-stone-200 hover:text-rose-500 p-1 transition-colors"
+        onClick={(e) => {
+          e.stopPropagation();
+          deleteItem(catName, item.id);
+        }}
+        onPointerDown={(e) => e.stopPropagation()}
+        className="text-stone-200 hover:text-rose-500 p-2 transition-colors"
       >
         <Trash2 size={16} />
       </button>
