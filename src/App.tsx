@@ -476,12 +476,10 @@ const initialChecklist = [
       { id: 'c1-2', text: '機票 / 電子機票', checked: false },
       { id: 'c1-3', text: '住宿訂單', checked: false },
       { id: 'c1-4', text: 'Visit Japan Web QR code', checked: false },
-      { id: 'c1-5', text: '旅遊保險文件', checked: false },
+      { id: 'c1-5', text: '記得保旅平險', checked: false },
       { id: 'c1-6', text: '租車預約資料', checked: false },
-      { id: 'c1-7', text: '國際駕照', checked: false },
       { id: 'c1-8', text: '台灣駕照', checked: false },
-      { id: 'c1-9', text: '行程表（PDF / 截圖備份）', checked: false },
-      { id: 'c1-10', text: '護照影本（紙本 / 電子）', checked: false },
+      { id: 'c1-11', text: '日文譯本', checked: false },
     ]
   },
   {
@@ -491,7 +489,6 @@ const initialChecklist = [
       { id: 'c2-2', text: '信用卡（Visa / Master）', checked: false },
       { id: 'c2-3', text: '行動支付（Apple Pay / Google Pay）', checked: false },
       { id: 'c2-4', text: '零錢包', checked: false },
-      { id: 'c2-5', text: '緊急備用現金', checked: false },
     ]
   },
   {
@@ -500,28 +497,20 @@ const initialChecklist = [
       { id: 'c3-1', text: '手機', checked: false },
       { id: 'c3-2', text: '充電器', checked: false },
       { id: 'c3-3', text: '行動電源', checked: false },
-      { id: 'c3-4', text: '相機 / GoPro', checked: false },
+      { id: 'c3-4', text: '相機 / 運動相機', checked: false },
       { id: 'c3-5', text: '記憶卡', checked: false },
-      { id: 'c3-6', text: 'eSIM / WiFi 分享器', checked: false },
+      { id: 'c3-6', text: 'eSIM / 漫遊 / 網卡', checked: false },
       { id: 'c3-7', text: '延長線', checked: false },
-      { id: 'c3-8', text: 'USB 充電線', checked: false },
+      { id: 'c3-8', text: '充電線', checked: false },
       { id: 'c3-9', text: '車用手機架（自駕）', checked: false },
-      { id: 'c3-10', text: '車用 USB 充電器', checked: false },
+      { id: 'c3-10', text: '車充', checked: false },
     ]
   },
   {
-    category: '衣物（3 月沖繩）',
+    category: '衣物',
     items: [
-      { id: 'c4-1', text: '短袖 2 件', checked: false },
-      { id: 'c4-2', text: '薄長袖', checked: false },
-      { id: 'c4-3', text: '薄外套', checked: false },
-      { id: 'c4-4', text: '長褲', checked: false },
-      { id: 'c4-5', text: '睡衣', checked: false },
-      { id: 'c4-6', text: '內衣褲', checked: false },
-      { id: 'c4-7', text: '襪子', checked: false },
-      { id: 'c4-8', text: '帽子', checked: false },
-      { id: 'c4-9', text: '拖鞋', checked: false },
-      { id: 'c4-10', text: '舒適步行鞋', checked: false },
+      { id: 'c4-1', text: '1. 身上穿一套', checked: false },
+      { id: 'c4-2', text: '2. 剩下全都去Shopping', checked: false },
     ]
   },
   {
@@ -542,17 +531,16 @@ const initialChecklist = [
       { id: 'c6-3', text: '腸胃藥', checked: false },
       { id: 'c6-4', text: '暈車藥', checked: false },
       { id: 'c6-5', text: '過敏藥', checked: false },
-      { id: 'c6-6', text: 'OK 繃', checked: false },
       { id: 'c6-7', text: '個人處方藥', checked: false },
       { id: 'c6-8', text: '酒精', checked: false },
       { id: 'c6-9', text: '口罩', checked: false },
+      { id: 'c6-10', text: '乳液', checked: false },
     ]
   },
   {
-    category: '沖繩旅遊加分小物',
+    category: '加分小物',
     items: [
       { id: 'c7-1', text: '泳褲', checked: false },
-      { id: 'c7-2', text: '保濕乳', checked: false },
       { id: 'c7-3', text: '環保購物袋', checked: false },
       { id: 'c7-4', text: '行李秤', checked: false },
       { id: 'c7-5', text: '頸枕', checked: false },
