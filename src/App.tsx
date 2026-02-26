@@ -705,29 +705,29 @@ function ChecklistTab() {
       </div>
       
       <div className="px-6 pt-6">
-        <form onSubmit={addItem} className="mb-8 space-y-3">
-        <div className="flex gap-2">
-          <select 
-            value={activeCategory}
-            onChange={(e) => setActiveCategory(e.target.value)}
-            className="bg-white border border-stone-200 rounded-2xl px-3 py-3 text-base font-black text-ai focus:outline-none focus:ring-2 focus:ring-shu/20 shadow-sm"
-          >
-            {categories.map((cat: any) => (
-              <option key={cat.category} value={cat.category}>{cat.category}</option>
-            ))}
-          </select>
-          <input 
-            type="text" 
-            placeholder="新增物品..." 
-            value={newItemText}
-            onChange={(e) => setNewItemText(e.target.value)}
-            className="flex-1 bg-white border border-stone-200 rounded-2xl px-5 py-3 text-base font-bold focus:outline-none focus:ring-2 focus:ring-shu/20 shadow-sm placeholder:text-stone-300"
-          />
-          <button type="submit" className="bg-shu text-white p-3 rounded-2xl shadow-lg active:scale-95 transition-transform">
-            <Plus size={22} strokeWidth={3} />
-          </button>
-        </div>
-      </form>
+        <form onSubmit={addItem} className="mb-8">
+          <div className="flex gap-2 w-full">
+            <select 
+              value={activeCategory}
+              onChange={(e) => setActiveCategory(e.target.value)}
+              className="w-24 flex-shrink-0 bg-white border border-stone-200 rounded-2xl px-2 py-3 text-base font-black text-ai focus:outline-none focus:ring-2 focus:ring-shu/20 shadow-sm truncate"
+            >
+              {categories.map((cat: any) => (
+                <option key={cat.category} value={cat.category}>{cat.category}</option>
+              ))}
+            </select>
+            <input 
+              type="text" 
+              placeholder="新增物品..." 
+              value={newItemText}
+              onChange={(e) => setNewItemText(e.target.value)}
+              className="min-w-0 flex-1 bg-white border border-stone-200 rounded-2xl px-4 py-3 text-base font-bold focus:outline-none focus:ring-2 focus:ring-shu/20 shadow-sm placeholder:text-stone-300"
+            />
+            <button type="submit" className="flex-shrink-0 bg-shu text-white w-12 flex items-center justify-center rounded-2xl shadow-lg active:scale-95 transition-transform">
+              <Plus size={22} strokeWidth={3} />
+            </button>
+          </div>
+        </form>
 
       <div className="space-y-8">
         {categories.map((cat: any) => (
@@ -858,7 +858,7 @@ function ExpenseTab() {
               className="w-full bg-white border border-stone-200 rounded-3xl pl-12 pr-5 py-5 text-2xl font-serif font-black text-sumi focus:outline-none focus:ring-2 focus:ring-shu/20 shadow-sm placeholder:text-stone-100"
             />
           </div>
-          <button type="submit" className="bg-shu text-white px-8 rounded-3xl hover:bg-shu/90 active:scale-95 transition-all shadow-xl flex items-center justify-center">
+          <button type="submit" className="flex-shrink-0 bg-shu text-white px-6 rounded-3xl hover:bg-shu/90 active:scale-95 transition-all shadow-xl flex items-center justify-center">
             <Plus size={32} strokeWidth={3} />
           </button>
         </div>
