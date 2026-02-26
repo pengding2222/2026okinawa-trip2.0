@@ -194,59 +194,59 @@ function EventCard({ event, themeColor }: { event: any, themeColor: string, key?
 
   const getTagStyle = (type: string) => {
     switch (type) {
-      case 'reservation': return 'bg-rose-50 text-rose-600 border-rose-100';
+      case 'reservation': return 'bg-sakura text-shu border-shu/10';
       case 'food': return 'bg-amber-50 text-amber-600 border-amber-100';
       case 'shopping': return 'bg-pink-50 text-pink-600 border-pink-100';
-      default: return 'bg-sky-50 text-sky-600 border-sky-100';
+      default: return 'bg-ai/5 text-ai border-ai/10';
     }
   };
 
   const getThemeStyles = () => {
     switch (themeColor) {
-      case 'rose': return { border: 'border-rose-100', iconBg: 'bg-rose-50', text: 'text-rose-900', nav: 'bg-rose-500 hover:bg-rose-600' };
-      case 'emerald': return { border: 'border-emerald-100', iconBg: 'bg-emerald-50', text: 'text-emerald-900', nav: 'bg-emerald-500 hover:bg-emerald-600' };
-      case 'sky': return { border: 'border-sky-100', iconBg: 'bg-sky-50', text: 'text-sky-900', nav: 'bg-sky-500 hover:bg-sky-600' };
-      case 'amber': return { border: 'border-amber-100', iconBg: 'bg-amber-50', text: 'text-amber-900', nav: 'bg-amber-500 hover:bg-amber-600' };
-      case 'indigo': return { border: 'border-indigo-100', iconBg: 'bg-indigo-50', text: 'text-indigo-900', nav: 'bg-indigo-500 hover:bg-indigo-600' };
-      default: return { border: 'border-sky-100', iconBg: 'bg-sky-50', text: 'text-sky-900', nav: 'bg-sky-500 hover:bg-sky-600' };
+      case 'rose': return { border: 'border-sakura', iconBg: 'bg-sakura', text: 'text-shu', nav: 'bg-shu hover:bg-shu/90' };
+      case 'emerald': return { border: 'border-emerald-50', iconBg: 'bg-emerald-50', text: 'text-emerald-900', nav: 'bg-emerald-600 hover:bg-emerald-700' };
+      case 'sky': return { border: 'border-ai/5', iconBg: 'bg-ai/5', text: 'text-ai', nav: 'bg-ai hover:bg-ai/90' };
+      case 'amber': return { border: 'border-amber-50', iconBg: 'bg-amber-50', text: 'text-amber-900', nav: 'bg-amber-600 hover:bg-amber-700' };
+      case 'indigo': return { border: 'border-indigo-50', iconBg: 'bg-indigo-50', text: 'text-indigo-900', nav: 'bg-indigo-600 hover:bg-indigo-700' };
+      default: return { border: 'border-stone-100', iconBg: 'bg-stone-50', text: 'text-sumi', nav: 'bg-sumi hover:bg-sumi/90' };
     }
   };
 
   const styles = getThemeStyles();
 
   return (
-    <div className={`bg-white rounded-3xl p-5 shadow-sm border ${styles.border} mb-4 relative overflow-hidden group active:scale-[0.98] transition-transform`}>
+    <div className={`bg-white rounded-3xl p-6 shadow-xl border ${styles.border} mb-4 relative overflow-hidden group active:scale-[0.98] transition-all`}>
       <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${event.type === 'food' ? 'bg-orange-400' : event.type === 'hotel' ? 'bg-cyan-400' : event.type === 'transport' ? 'bg-blue-400' : 'bg-emerald-400'}`} />
       
-      <div className="flex items-start gap-4 pl-2">
-        <div className="flex flex-col items-center min-w-[48px]">
-          <span className={`text-sm font-black ${styles.text} tracking-tight`}>{event.time}</span>
-          <div className={`w-10 h-10 rounded-full ${styles.iconBg} flex items-center justify-center mt-2 shadow-inner`}>
+      <div className="flex items-start gap-5 pl-2">
+        <div className="flex flex-col items-center min-w-[52px]">
+          <span className={`text-sm font-serif font-black ${styles.text} tracking-tight`}>{event.time}</span>
+          <div className={`w-12 h-12 rounded-2xl ${styles.iconBg} flex items-center justify-center mt-3 shadow-inner`}>
             {getIcon()}
           </div>
         </div>
         
         <div className="flex-1 pt-0.5">
-          <h3 className="text-lg font-bold text-stone-900 mb-1.5 leading-tight">{event.title}</h3>
+          <h3 className="text-xl font-serif font-black text-sumi mb-2 leading-tight">{event.title}</h3>
           
-          <div className="flex items-center gap-1.5 text-stone-400 mb-2.5">
+          <div className="flex items-center gap-2 text-stone-400 mb-3">
             <MapPin size={14} className="text-stone-300" />
-            <span className="text-xs font-medium">{event.location}</span>
+            <span className="text-xs font-bold tracking-wide">{event.location}</span>
           </div>
           
-          <p className="text-sm text-stone-600 leading-relaxed mb-3">{event.description}</p>
+          <p className="text-sm text-stone-600 leading-relaxed mb-4 font-medium">{event.description}</p>
           
           {event.phone && (
-            <div className="flex items-center gap-1.5 text-stone-500 mb-3 bg-stone-50 px-3 py-1.5 rounded-xl w-fit border border-stone-100">
-              <Phone size={12} className="text-stone-400" />
-              <span className="text-xs font-bold font-mono">車機電話: {event.phone}</span>
+            <div className="flex items-center gap-2 text-ai mb-4 bg-ai/5 px-4 py-2 rounded-2xl w-fit border border-ai/10">
+              <Phone size={12} className="text-ai/60" />
+              <span className="text-xs font-black font-mono tracking-wider">車機電話: {event.phone}</span>
             </div>
           )}
 
           {event.tags && (
-            <div className="flex flex-wrap gap-2 mb-3">
+            <div className="flex flex-wrap gap-2 mb-4">
               {event.tags.map((tag: any, i: number) => (
-                <span key={i} className={`text-[11px] font-bold px-2.5 py-1 rounded-md border ${getTagStyle(tag.type)}`}>
+                <span key={i} className={`text-[10px] font-black px-3 py-1.5 rounded-lg border uppercase tracking-widest ${getTagStyle(tag.type)}`}>
                   {tag.text}
                 </span>
               ))}
@@ -259,7 +259,7 @@ function EventCard({ event, themeColor }: { event: any, themeColor: string, key?
                 href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}`}
                 target="_blank"
                 rel="noreferrer"
-                className={`inline-flex items-center gap-1.5 px-4 py-2 ${styles.nav} rounded-xl text-xs font-bold text-white transition-colors shadow-sm active:scale-95`}
+                className={`inline-flex items-center gap-2 px-5 py-2.5 ${styles.nav} rounded-2xl text-xs font-black text-white transition-all shadow-lg active:scale-95 uppercase tracking-widest`}
               >
                 <Navigation size={14} /> 導航至此
               </a>
@@ -278,76 +278,93 @@ function ItineraryTab() {
 
   const getThemeBg = () => {
     switch (activeDay.themeColor) {
-      case 'rose': return 'bg-rose-50/90';
+      case 'rose': return 'bg-sakura/90';
       case 'emerald': return 'bg-emerald-50/90';
       case 'sky': return 'bg-sky-50/90';
       case 'amber': return 'bg-amber-50/90';
       case 'indigo': return 'bg-indigo-50/90';
-      default: return 'bg-sky-50/90';
+      default: return 'bg-washi/90';
     }
   };
 
   const getGradient = () => {
     switch (activeDay.themeColor) {
-      case 'rose': return 'from-rose-400 to-pink-500';
-      case 'emerald': return 'from-emerald-400 to-teal-500';
-      case 'sky': return 'from-sky-400 to-blue-500';
-      case 'amber': return 'from-amber-400 to-orange-500';
-      case 'indigo': return 'from-indigo-400 to-purple-500';
-      default: return 'from-sky-400 to-blue-500';
+      case 'rose': return 'from-shu to-rose-600';
+      case 'emerald': return 'from-emerald-600 to-teal-700';
+      case 'sky': return 'from-ai to-blue-800';
+      case 'amber': return 'from-amber-600 to-orange-700';
+      case 'indigo': return 'from-indigo-600 to-purple-700';
+      default: return 'from-shu to-rose-600';
     }
   };
 
   return (
-    <div className="pb-28 pt-6 max-w-md mx-auto">
-      <div className="flex items-center justify-between px-6 mb-6">
-        <h1 className="text-3xl font-black text-stone-900 tracking-tight">2026 沖繩五天四夜 🚗</h1>
-        <Palmtree className="text-emerald-500" size={28} />
+    <div className="pb-28">
+      {/* 氛圍頂部 */}
+      <div className="relative h-72 overflow-hidden shadow-2xl">
+        <img 
+          src="https://picsum.photos/seed/okinawa/1080/720" 
+          alt="Okinawa" 
+          className="w-full h-full object-cover brightness-75 scale-105"
+          referrerPolicy="no-referrer"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-sumi via-sumi/20 to-transparent" />
+        <div className="absolute bottom-8 left-8 right-8">
+          <div className="flex items-center gap-3 mb-2">
+            <span className="px-3 py-1 bg-shu text-white text-[10px] font-black rounded-full uppercase tracking-widest shadow-lg">Okinawa 2026</span>
+            <span className="text-white/60 text-[10px] font-bold tracking-widest uppercase">Spring Journey</span>
+          </div>
+          <h1 className="text-4xl font-serif font-black text-white tracking-tight mb-1">沖繩自駕之旅</h1>
+          <p className="text-white/70 text-sm font-medium">與好友們的五天四夜海島假期</p>
+        </div>
       </div>
-      
-      <div className={`sticky top-0 z-20 ${getThemeBg()} backdrop-blur-xl pt-2 pb-4 px-4 border-b border-white/50 mb-6 shadow-sm transition-colors duration-500`}>
-        <div className="flex gap-3 overflow-x-auto scrollbar-hide px-2 pb-1">
+
+      <div className="max-w-md mx-auto px-6 -mt-6 relative z-20">
+        {/* 日期切換器 */}
+        <div className="flex gap-3 overflow-x-auto pb-6 scrollbar-hide snap-x">
           {mockItinerary.map((day, idx) => (
             <button
               key={day.id}
               onClick={() => setActiveDayIdx(idx)}
-              className={`flex flex-col items-center min-w-[76px] py-2.5 px-3 rounded-2xl transition-all duration-300 ${
+              className={`flex-shrink-0 snap-start w-20 h-24 rounded-2xl flex flex-col items-center justify-center transition-all duration-300 border-2 ${
                 activeDayIdx === idx 
-                  ? 'bg-stone-900 text-white shadow-md scale-105' 
-                  : 'bg-white text-stone-400 border border-stone-100 hover:bg-stone-50'
+                  ? 'bg-white border-shu shadow-xl scale-105' 
+                  : 'bg-white/60 backdrop-blur-sm border-transparent text-stone-400'
               }`}
             >
-              <span className="text-[11px] font-bold uppercase tracking-wider mb-1 opacity-80">{day.dayLabel}</span>
-              <span className={`text-sm font-black ${activeDayIdx === idx ? 'text-white' : 'text-stone-800'}`}>
-                {day.date.split('-').slice(1).join('/')}
-              </span>
+              <span className={`text-[10px] font-black uppercase tracking-widest mb-1 ${activeDayIdx === idx ? 'text-shu' : ''}`}>{day.dayLabel}</span>
+              <span className={`text-xl font-serif font-black ${activeDayIdx === idx ? 'text-sumi' : ''}`}>{day.date.split('-')[2]}</span>
+              <span className="text-[10px] font-bold mt-1 opacity-60">MAR</span>
             </button>
           ))}
         </div>
-      </div>
 
-      <div className="px-5">
-        <div className={`bg-gradient-to-br ${getGradient()} rounded-3xl p-5 mb-6 flex items-center justify-between shadow-md text-white transition-all duration-500`}>
-          <div>
-            <p className="text-[10px] font-bold text-white/80 mb-1 uppercase tracking-widest">MARCH WEATHER AVG.</p>
-            <h2 className="text-xl font-black">{activeDay.locationName}</h2>
-            <p className="text-xs text-white/80 mt-0.5">{activeDay.weather.condition}</p>
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="text-3xl font-black">{activeDay.weather.temp}</span>
-            <div className="p-2 bg-white/20 rounded-2xl backdrop-blur-sm">
-              {activeDay.weather.icon}
+        {/* 當日概況 */}
+        <div className="bg-white rounded-3xl p-6 shadow-xl border border-stone-100 mb-8 relative overflow-hidden">
+          <div className="absolute top-0 right-0 p-4 opacity-5"><Waves size={80} /></div>
+          <div className="flex justify-between items-start mb-4">
+            <div>
+              <h2 className="text-2xl font-serif font-black text-sumi mb-1">{activeDay.locationName}</h2>
+              <p className="text-xs font-bold text-stone-400 uppercase tracking-widest">{activeDay.date}</p>
+            </div>
+            <div className="text-right">
+              <div className="flex items-center gap-2 justify-end mb-1">
+                {activeDay.weather.icon}
+                <span className="text-xl font-serif font-black text-sumi">{activeDay.weather.temp}</span>
+              </div>
+              <p className="text-[10px] font-bold text-stone-400 uppercase tracking-widest">{activeDay.weather.condition}</p>
             </div>
           </div>
         </div>
 
+        {/* 行程列表 */}
         <div className="space-y-2">
           {activeDay.events.map((event) => (
             <EventCard key={event.id} event={event} themeColor={activeDay.themeColor} />
           ))}
         </div>
-        
-        <p className="text-[10px] text-stone-400 text-center mt-8 px-4 leading-relaxed">
+
+        <p className="text-[10px] text-stone-400 text-center mt-12 px-4 leading-relaxed font-medium">
           氣象來源：日本氣象廳 (JMA) 歷史平均數據。<br/>3 月沖繩早晚溫差大，建議採洋蔥式穿法。
         </p>
       </div>
@@ -358,25 +375,25 @@ function ItineraryTab() {
 // --- 4. 分頁元件：實用資訊 ---
 function InfoTab() {
   return (
-    <div className="pb-28 pt-6 max-w-md mx-auto px-6">
-      <h1 className="text-3xl font-black text-sky-900 mb-8 tracking-tight">旅行資訊</h1>
+    <div className="pb-28 pt-10 max-w-md mx-auto px-6">
+      <h1 className="text-4xl font-serif font-black text-sumi mb-8 tracking-tight">旅行資訊</h1>
       
       <div className="space-y-6">
         {/* VJW Reminder */}
         <section>
-          <div className="bg-gradient-to-br from-rose-500 to-rose-600 rounded-3xl p-5 shadow-lg text-white relative overflow-hidden">
+          <div className="bg-shu rounded-3xl p-6 shadow-xl text-white relative overflow-hidden">
             <div className="absolute -right-4 -top-4 opacity-10 rotate-12"><AlertCircle size={100} /></div>
-            <h2 className="text-lg font-black mb-2 flex items-center gap-2">
-              <AlertCircle size={20} /> 入境必看！VJW 提醒
+            <h2 className="text-xl font-serif font-black mb-3 flex items-center gap-2">
+              <AlertCircle size={22} /> 入境必看！VJW 提醒
             </h2>
-            <p className="text-sm font-medium leading-relaxed mb-4 opacity-90">
-              Visit Japan Web (VJW) 必須在出發前填寫完成，並將產出的 <span className="font-black underline">QR Code 截圖備份</span>。入境時請直接出示截圖交由入境官掃描，可大幅縮短通關時間。
+            <p className="text-sm font-medium leading-relaxed mb-6 opacity-90">
+              Visit Japan Web (VJW) 必須在出發前填寫完成，並將產出的 <span className="font-black underline decoration-white/40 underline-offset-4">QR Code 截圖備份</span>。入境時請直接出示截圖交由入境官掃描，可大幅縮短通關時間。
             </p>
             <a 
               href="https://vjw-lp.digital.go.jp/zh-hant/" 
               target="_blank" 
               rel="noreferrer"
-              className="inline-flex items-center gap-2 bg-white text-rose-600 px-4 py-2 rounded-xl text-xs font-black shadow-md active:scale-95 transition-transform"
+              className="inline-flex items-center gap-2 bg-white text-shu px-5 py-3 rounded-2xl text-xs font-black shadow-lg active:scale-95 transition-transform"
             >
               前往 VJW 官方網站 <ExternalLink size={14} />
             </a>
@@ -384,27 +401,27 @@ function InfoTab() {
         </section>
 
         <section>
-          <h2 className="text-xs font-black text-sky-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+          <h2 className="text-xs font-black text-ai uppercase tracking-widest mb-4 flex items-center gap-2">
             <Plane size={14} /> 航班資訊
           </h2>
-          <div className="bg-white rounded-3xl p-5 shadow-sm border border-sky-50">
-            <div className="mb-4 pb-4 border-b border-sky-50">
-              <span className="inline-block px-2 py-1 bg-sky-50 text-sky-600 text-[10px] font-bold rounded mb-2">去程 3/11</span>
+          <div className="bg-white rounded-3xl p-6 shadow-xl border border-stone-100">
+            <div className="mb-5 pb-5 border-b border-stone-100">
+              <span className="inline-block px-2.5 py-1 bg-sakura text-shu text-[10px] font-black rounded-md mb-3 uppercase tracking-wider">去程 3/11</span>
               <div className="flex justify-between items-center">
-                <div className="text-lg font-black text-stone-800">FD230</div>
+                <div className="text-xl font-serif font-black text-sumi">FD230</div>
                 <div className="text-right">
-                  <div className="text-sm font-bold text-stone-800">13:30 起飛</div>
-                  <div className="text-xs text-stone-400">15:15 降落</div>
+                  <div className="text-base font-black text-sumi">13:30 起飛</div>
+                  <div className="text-xs text-stone-400 font-bold uppercase">15:15 Arrival</div>
                 </div>
               </div>
             </div>
             <div>
-              <span className="inline-block px-2 py-1 bg-orange-50 text-orange-600 text-[10px] font-bold rounded mb-2">回程 3/15</span>
+              <span className="inline-block px-2.5 py-1 bg-stone-100 text-stone-600 text-[10px] font-black rounded-md mb-3 uppercase tracking-wider">回程 3/15</span>
               <div className="flex justify-between items-center">
-                <div className="text-lg font-black text-stone-800">CI123</div>
+                <div className="text-xl font-serif font-black text-sumi">CI123</div>
                 <div className="text-right">
-                  <div className="text-sm font-bold text-stone-800">20:20 起飛</div>
-                  <div className="text-xs text-stone-400">21:00 降落</div>
+                  <div className="text-base font-black text-sumi">20:20 起飛</div>
+                  <div className="text-xs text-stone-400 font-bold uppercase">21:00 Arrival</div>
                 </div>
               </div>
             </div>
@@ -412,54 +429,54 @@ function InfoTab() {
         </section>
 
         <section>
-          <h2 className="text-xs font-black text-sky-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+          <h2 className="text-xs font-black text-ai uppercase tracking-widest mb-4 flex items-center gap-2">
             <Home size={14} /> 住宿資訊
           </h2>
-          <div className="bg-white rounded-3xl p-5 shadow-sm border border-sky-50">
-            <h3 className="text-base font-bold text-stone-900 mb-1">CONDOMINIUM 紅-BIN-</h3>
-            <p className="text-sm text-stone-400 mb-4">入住: 3/11 18:30</p>
-            <div className="bg-sky-50/50 p-3 rounded-xl border border-sky-100">
-              <p className="text-[10px] font-bold text-sky-400 mb-1 uppercase">民宿地址</p>
-              <p className="text-sm font-medium text-sky-900 select-all">7 Chome-9-33 Hiyagon, Okinawa, 904-2173日本</p>
+          <div className="bg-white rounded-3xl p-6 shadow-xl border border-stone-100">
+            <h3 className="text-lg font-serif font-black text-sumi mb-2">CONDOMINIUM 紅-BIN-</h3>
+            <p className="text-xs font-bold text-stone-400 mb-5 uppercase tracking-widest">Check-in: 3/11 18:30</p>
+            <div className="bg-washi p-4 rounded-2xl border border-stone-100">
+              <p className="text-[10px] font-black text-ai mb-2 uppercase tracking-widest">民宿地址</p>
+              <p className="text-sm font-bold text-sumi select-all leading-relaxed">7 Chome-9-33 Hiyagon, Okinawa, 904-2173日本</p>
             </div>
           </div>
         </section>
 
         <section>
-          <h2 className="text-xs font-black text-sky-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+          <h2 className="text-xs font-black text-ai uppercase tracking-widest mb-4 flex items-center gap-2">
             <Car size={14} /> 租車資訊
           </h2>
-          <div className="bg-white rounded-3xl p-5 shadow-sm border border-sky-50">
-            <h3 className="text-base font-bold text-stone-900 mb-3">ORIX Rent-a-car 那霸機場店</h3>
+          <div className="bg-white rounded-3xl p-6 shadow-xl border border-stone-100">
+            <h3 className="text-lg font-serif font-black text-sumi mb-4">ORIX Rent-a-car 那霸機場店</h3>
             <div className="space-y-3">
-              <div className="flex justify-between items-center bg-sky-50/30 p-3 rounded-xl border border-sky-100">
-                <span className="text-sm font-bold text-stone-800">Honda 車輛</span>
-                <span className="text-xs font-black text-rose-600 bg-rose-50 px-2 py-1 rounded">代號: 247162932</span>
+              <div className="flex justify-between items-center bg-sakura/30 p-4 rounded-2xl border border-sakura/50">
+                <span className="text-sm font-bold text-sumi">Honda 車輛</span>
+                <span className="text-[10px] font-black text-shu bg-white px-3 py-1.5 rounded-lg shadow-sm">代號: 247162932</span>
               </div>
-              <div className="flex justify-between items-center bg-sky-50/30 p-3 rounded-xl border border-sky-100">
-                <span className="text-sm font-bold text-stone-800">Toyota 車輛</span>
-                <span className="text-xs font-black text-rose-600 bg-rose-50 px-2 py-1 rounded">代號: 247162570</span>
+              <div className="flex justify-between items-center bg-sakura/30 p-4 rounded-2xl border border-sakura/50">
+                <span className="text-sm font-bold text-sumi">Toyota 車輛</span>
+                <span className="text-[10px] font-black text-shu bg-white px-3 py-1.5 rounded-lg shadow-sm">代號: 247162570</span>
               </div>
             </div>
           </div>
         </section>
 
         <section>
-          <h2 className="text-xs font-black text-sky-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+          <h2 className="text-xs font-black text-ai uppercase tracking-widest mb-4 flex items-center gap-2">
             <Phone size={14} /> 緊急聯絡
           </h2>
-          <div className="bg-white rounded-3xl p-2 shadow-sm border border-sky-50">
-            <div className="flex justify-between items-center p-3 border-b border-sky-50">
-              <span className="text-sm font-bold text-stone-800">報警 (警察)</span>
-              <a href="tel:110" className="flex items-center gap-1.5 text-sky-600 bg-sky-50 px-4 py-2 rounded-xl text-sm font-black active:scale-95 transition-transform"><Phone size={14} /> 110</a>
+          <div className="bg-white rounded-3xl p-3 shadow-xl border border-stone-100">
+            <div className="flex justify-between items-center p-4 border-b border-stone-100">
+              <span className="text-sm font-bold text-sumi">報警 (警察)</span>
+              <a href="tel:110" className="flex items-center gap-2 text-ai bg-ai/5 px-5 py-2.5 rounded-2xl text-sm font-black active:scale-95 transition-transform"><Phone size={14} /> 110</a>
             </div>
-            <div className="flex justify-between items-center p-3 border-b border-sky-50">
-              <span className="text-sm font-bold text-stone-800">救護車/消防</span>
-              <a href="tel:119" className="flex items-center gap-1.5 text-rose-600 bg-rose-50 px-4 py-2 rounded-xl text-sm font-black active:scale-95 transition-transform"><Phone size={14} /> 119</a>
+            <div className="flex justify-between items-center p-4 border-b border-stone-100">
+              <span className="text-sm font-bold text-sumi">救護車/消防</span>
+              <a href="tel:119" className="flex items-center gap-2 text-shu bg-sakura px-5 py-2.5 rounded-2xl text-sm font-black active:scale-95 transition-transform"><Phone size={14} /> 119</a>
             </div>
-            <div className="flex justify-between items-center p-3">
-              <span className="text-sm font-bold text-stone-800">駐日代表處<br/><span className="text-[10px] text-stone-400 font-normal">那霸分處</span></span>
-              <a href="tel:098-862-7008" className="flex items-center gap-1.5 text-stone-700 bg-stone-100 px-4 py-2 rounded-xl text-sm font-black active:scale-95 transition-transform"><Phone size={14} /> 撥打</a>
+            <div className="flex justify-between items-center p-4">
+              <span className="text-sm font-bold text-sumi">駐日代表處<br/><span className="text-[10px] text-stone-400 font-normal">那霸分處</span></span>
+              <a href="tel:098-862-7008" className="flex items-center gap-2 text-sumi bg-stone-100 px-5 py-2.5 rounded-2xl text-sm font-black active:scale-95 transition-transform"><Phone size={14} /> 撥打</a>
             </div>
           </div>
         </section>
@@ -677,15 +694,15 @@ function ChecklistTab() {
   };
 
   return (
-    <div className="pb-28 pt-6 max-w-md mx-auto px-6">
-      <h1 className="text-3xl font-black text-emerald-900 mb-6 tracking-tight">行李清單</h1>
+    <div className="pb-28 pt-10 max-w-md mx-auto px-6">
+      <h1 className="text-4xl font-serif font-black text-sumi mb-8 tracking-tight">行李清單</h1>
       
-      <form onSubmit={addItem} className="mb-8 space-y-3">
+      <form onSubmit={addItem} className="mb-10 space-y-3">
         <div className="flex gap-2">
           <select 
             value={activeCategory}
             onChange={(e) => setActiveCategory(e.target.value)}
-            className="bg-white border border-emerald-100 rounded-2xl px-3 py-3 text-xs font-bold text-emerald-800 focus:outline-none focus:ring-1 focus:ring-emerald-400 shadow-sm"
+            className="bg-white border border-stone-200 rounded-2xl px-3 py-3 text-xs font-black text-ai focus:outline-none focus:ring-2 focus:ring-shu/20 shadow-sm"
           >
             {categories.map((cat: any) => (
               <option key={cat.category} value={cat.category}>{cat.category}</option>
@@ -696,21 +713,21 @@ function ChecklistTab() {
             placeholder="新增物品..." 
             value={newItemText}
             onChange={(e) => setNewItemText(e.target.value)}
-            className="flex-1 bg-white border border-emerald-100 rounded-2xl px-4 py-3 text-sm font-medium focus:outline-none focus:ring-1 focus:ring-emerald-400 shadow-sm placeholder:text-stone-300"
+            className="flex-1 bg-white border border-stone-200 rounded-2xl px-5 py-3 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-shu/20 shadow-sm placeholder:text-stone-300"
           />
-          <button type="submit" className="bg-emerald-500 text-white p-3 rounded-2xl shadow-md active:scale-95 transition-transform">
-            <Plus size={20} strokeWidth={3} />
+          <button type="submit" className="bg-shu text-white p-3 rounded-2xl shadow-lg active:scale-95 transition-transform">
+            <Plus size={22} strokeWidth={3} />
           </button>
         </div>
       </form>
 
-      <div className="space-y-8">
+      <div className="space-y-10">
         {categories.map((cat: any) => (
           <section key={cat.category}>
-            <h2 className="text-xs font-black text-emerald-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+            <h2 className="text-xs font-black text-ai uppercase tracking-widest mb-5 flex items-center gap-2">
               <ClipboardList size={14} /> {cat.category}
             </h2>
-            <div className="bg-white rounded-3xl p-2 shadow-sm border border-emerald-50">
+            <div className="bg-white rounded-3xl p-2 shadow-xl border border-stone-100">
               <Reorder.Group axis="y" values={cat.items} onReorder={(newOrder) => handleReorder(cat.category, newOrder)} className="space-y-0">
                 {cat.items.map((item: any) => (
                   <ChecklistItem 
@@ -770,20 +787,20 @@ function ExpenseTab() {
   const totalTWD = Math.round(totalJPY * exchangeRate);
 
   return (
-    <div className="pb-28 pt-6 max-w-md mx-auto px-6">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-black text-sky-900 tracking-tight">旅行記帳</h1>
+    <div className="pb-28 pt-10 max-w-md mx-auto px-6">
+      <div className="flex items-center justify-between mb-8">
+        <h1 className="text-4xl font-serif font-black text-sumi tracking-tight">旅行記帳</h1>
         <button 
           onClick={() => setIsEditingRate(!isEditingRate)}
-          className="text-[10px] font-bold bg-sky-100 text-sky-600 px-3 py-1.5 rounded-full active:scale-95 transition-transform"
+          className="text-[10px] font-black bg-sakura text-shu px-4 py-2 rounded-full active:scale-95 transition-transform shadow-sm border border-shu/10"
         >
           {isEditingRate ? '完成設定' : `匯率: ${exchangeRate}`}
         </button>
       </div>
       
       {isEditingRate && (
-        <div className="mb-6 p-4 bg-white rounded-2xl border border-sky-100 shadow-sm animate-in fade-in slide-in-from-top-2">
-          <label className="block text-[10px] font-black text-sky-400 uppercase tracking-widest mb-2">設定日幣匯率 (台銀賣出價參考)</label>
+        <div className="mb-8 p-5 bg-white rounded-3xl border border-stone-100 shadow-xl animate-in fade-in slide-in-from-top-2">
+          <label className="block text-[10px] font-black text-ai uppercase tracking-widest mb-3">設定日幣匯率 (台銀賣出價參考)</label>
           <div className="flex gap-2">
             <input 
               type="number" 
@@ -791,36 +808,36 @@ function ExpenseTab() {
               inputMode="decimal"
               value={exchangeRate}
               onChange={(e) => setExchangeRate(Number(e.target.value))}
-              className="flex-1 bg-sky-50 border border-sky-100 rounded-xl px-4 py-2 text-sm font-bold text-sky-900 focus:outline-none focus:ring-2 focus:ring-sky-400"
+              className="flex-1 bg-washi border border-stone-100 rounded-2xl px-5 py-3 text-sm font-black text-sumi focus:outline-none focus:ring-2 focus:ring-shu/20"
             />
           </div>
         </div>
       )}
 
-      <div className="bg-gradient-to-br from-sky-500 to-blue-600 rounded-3xl p-6 text-white mb-6 shadow-lg relative overflow-hidden">
-        <div className="absolute -right-4 -top-4 opacity-10 rotate-12"><Waves size={120} /></div>
-        <p className="text-[10px] font-bold text-sky-100 mb-1 uppercase tracking-widest">總支出 (日幣 JPY)</p>
-        <div className="flex items-baseline gap-1 mb-4">
-          <span className="text-xl font-medium">¥</span>
-          <span className="text-4xl font-black tracking-tighter">{totalJPY.toLocaleString()}</span>
+      <div className="bg-shu rounded-[2rem] p-8 text-white mb-8 shadow-2xl relative overflow-hidden">
+        <div className="absolute -right-4 -top-4 opacity-10 rotate-12"><Waves size={140} /></div>
+        <p className="text-[10px] font-black text-sakura/60 mb-2 uppercase tracking-widest">總支出 (日幣 JPY)</p>
+        <div className="flex items-baseline gap-1 mb-6">
+          <span className="text-2xl font-serif font-medium">¥</span>
+          <span className="text-5xl font-serif font-black tracking-tighter">{totalJPY.toLocaleString()}</span>
         </div>
-        <div className="pt-4 border-t border-white/20">
-          <p className="text-[10px] font-bold text-sky-100 mb-1 uppercase tracking-widest">預估台幣 (匯率 {exchangeRate})</p>
-          <div className="flex items-baseline gap-1 text-yellow-300">
+        <div className="pt-6 border-t border-white/10">
+          <p className="text-[10px] font-black text-sakura/60 mb-2 uppercase tracking-widest">預估台幣 (匯率 {exchangeRate})</p>
+          <div className="flex items-baseline gap-1 text-white">
             <span className="text-sm font-medium">NT$</span>
-            <span className="text-xl font-black">{totalTWD.toLocaleString()}</span>
+            <span className="text-2xl font-black">{totalTWD.toLocaleString()}</span>
           </div>
         </div>
       </div>
 
-      <div className="mb-6 text-center">
-        <p className="text-xs font-bold text-sky-400 italic">“ 日本是免稅，不是免費！ ” 💸</p>
+      <div className="mb-8 text-center">
+        <p className="text-xs font-bold text-ai italic">“ 日本是免稅，不是免費！ ” 💸</p>
       </div>
 
-      <form onSubmit={addExpense} className="space-y-3 mb-8">
+      <form onSubmit={addExpense} className="space-y-4 mb-10">
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sky-300 font-black text-lg">¥</span>
+            <span className="absolute left-5 top-1/2 -translate-y-1/2 text-stone-300 font-serif font-black text-xl">¥</span>
             <input 
               type="number" 
               inputMode="numeric"
@@ -828,11 +845,11 @@ function ExpenseTab() {
               placeholder="金額" 
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              className="w-full bg-white border border-sky-100 rounded-2xl pl-10 pr-4 py-4 text-xl font-black text-sky-900 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 shadow-sm placeholder:text-sky-100"
+              className="w-full bg-white border border-stone-200 rounded-3xl pl-12 pr-5 py-5 text-2xl font-serif font-black text-sumi focus:outline-none focus:ring-2 focus:ring-shu/20 shadow-sm placeholder:text-stone-100"
             />
           </div>
-          <button type="submit" className="bg-sky-500 text-white px-6 rounded-2xl hover:bg-sky-600 active:scale-95 transition-all shadow-md flex items-center justify-center">
-            <Plus size={28} strokeWidth={3} />
+          <button type="submit" className="bg-shu text-white px-8 rounded-3xl hover:bg-shu/90 active:scale-95 transition-all shadow-xl flex items-center justify-center">
+            <Plus size={32} strokeWidth={3} />
           </button>
         </div>
         <input 
@@ -840,29 +857,29 @@ function ExpenseTab() {
           placeholder="項目 (例: 蝦蝦飯、伴手禮)" 
           value={desc}
           onChange={(e) => setDesc(e.target.value)}
-          className="w-full bg-white border border-sky-100 rounded-2xl px-5 py-3 text-sm font-medium focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 shadow-sm placeholder:text-stone-300"
+          className="w-full bg-white border border-stone-200 rounded-2xl px-6 py-4 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-shu/20 shadow-sm placeholder:text-stone-200"
         />
       </form>
 
-      <div className="space-y-3">
+      <div className="space-y-4">
         {expenses.length === 0 ? (
-          <div className="text-center py-12">
-            <div className="w-16 h-16 bg-sky-50 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Receipt size={32} className="text-sky-200" />
+          <div className="text-center py-16">
+            <div className="w-20 h-20 bg-sakura rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
+              <Receipt size={36} className="text-shu/20" />
             </div>
-            <p className="text-sky-300 text-sm font-bold">還沒有任何花費紀錄</p>
+            <p className="text-stone-300 text-sm font-bold tracking-widest uppercase">還沒有任何花費紀錄</p>
           </div>
         ) : (
           expenses.map(exp => (
-            <div key={exp.id} className="flex justify-between items-center bg-white p-4 rounded-2xl border border-sky-50 shadow-sm group">
-              <span className="text-sm font-bold text-stone-700">{exp.desc}</span>
-              <div className="flex items-center gap-4">
+            <div key={exp.id} className="flex justify-between items-center bg-white p-5 rounded-3xl border border-stone-50 shadow-lg group transition-all hover:shadow-xl">
+              <span className="text-sm font-bold text-sumi">{exp.desc}</span>
+              <div className="flex items-center gap-5">
                 <div className="text-right">
-                  <div className="text-sm font-black text-sky-900">¥ {exp.amount.toLocaleString()}</div>
-                  <div className="text-[10px] font-bold text-sky-300">NT$ {Math.round(exp.amount * exchangeRate).toLocaleString()}</div>
+                  <div className="text-lg font-serif font-black text-sumi">¥ {exp.amount.toLocaleString()}</div>
+                  <div className="text-[10px] font-black text-stone-300 uppercase tracking-tighter">NT$ {Math.round(exp.amount * exchangeRate).toLocaleString()}</div>
                 </div>
-                <button onClick={() => deleteExpense(exp.id)} className="text-stone-200 hover:text-rose-500 transition-colors p-1">
-                  <Trash2 size={16} />
+                <button onClick={() => deleteExpense(exp.id)} className="text-stone-200 hover:text-shu transition-colors p-2">
+                  <Trash2 size={18} />
                 </button>
               </div>
             </div>
@@ -878,34 +895,59 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('itinerary');
 
   return (
-    <div className="min-h-screen bg-sky-50/30 font-sans selection:bg-sky-100">
-      <main className="max-w-md mx-auto">
+    <div className="min-h-screen bg-washi bg-pattern font-sans text-sumi selection:bg-shu/10">
+      {/* 內容區域 */}
+      <main className="relative z-10">
         {activeTab === 'itinerary' && <ItineraryTab />}
         {activeTab === 'info' && <InfoTab />}
         {activeTab === 'expense' && <ExpenseTab />}
         {activeTab === 'checklist' && <ChecklistTab />}
       </main>
-      
-      <div className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-xl border-t border-sky-100 pb-safe z-50">
-        <div className="max-w-md mx-auto flex justify-around items-center px-2 py-2">
-          <button onClick={() => setActiveTab('itinerary')} className={`flex flex-col items-center gap-1 w-16 py-2 rounded-2xl transition-all duration-300 ${activeTab === 'itinerary' ? 'text-sky-600 bg-sky-50' : 'text-stone-300 hover:text-sky-400'}`}>
-            <Map size={20} strokeWidth={activeTab === 'itinerary' ? 2.5 : 2} />
-            <span className="text-[10px] font-black tracking-widest">行程</span>
+
+      {/* 底部導覽 */}
+      <nav className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-xl border-t border-stone-200 z-50 pb-safe shadow-[0_-4px_20px_rgba(0,0,0,0.03)]">
+        <div className="max-w-md mx-auto flex justify-around items-center h-20 px-4">
+          <button 
+            onClick={() => setActiveTab('itinerary')}
+            className={`flex flex-col items-center gap-1.5 transition-all duration-300 ${activeTab === 'itinerary' ? 'text-shu scale-110' : 'text-stone-400 hover:text-stone-600'}`}
+          >
+            <div className={`p-2 rounded-2xl transition-colors ${activeTab === 'itinerary' ? 'bg-shu/5' : ''}`}>
+              <Map size={22} strokeWidth={activeTab === 'itinerary' ? 2.5 : 2} />
+            </div>
+            <span className="text-[10px] font-black uppercase tracking-widest">行程</span>
           </button>
-          <button onClick={() => setActiveTab('info')} className={`flex flex-col items-center gap-1 w-16 py-2 rounded-2xl transition-all duration-300 ${activeTab === 'info' ? 'text-sky-600 bg-sky-50' : 'text-stone-300 hover:text-sky-400'}`}>
-            <Info size={20} strokeWidth={activeTab === 'info' ? 2.5 : 2} />
-            <span className="text-[10px] font-black tracking-widest">資訊</span>
+          
+          <button 
+            onClick={() => setActiveTab('info')}
+            className={`flex flex-col items-center gap-1.5 transition-all duration-300 ${activeTab === 'info' ? 'text-shu scale-110' : 'text-stone-400 hover:text-stone-600'}`}
+          >
+            <div className={`p-2 rounded-2xl transition-colors ${activeTab === 'info' ? 'bg-shu/5' : ''}`}>
+              <Info size={22} strokeWidth={activeTab === 'info' ? 2.5 : 2} />
+            </div>
+            <span className="text-[10px] font-black uppercase tracking-widest">資訊</span>
           </button>
-          <button onClick={() => setActiveTab('expense')} className={`flex flex-col items-center gap-1 w-16 py-2 rounded-2xl transition-all duration-300 ${activeTab === 'expense' ? 'text-sky-600 bg-sky-50' : 'text-stone-300 hover:text-sky-400'}`}>
-            <Wallet size={20} strokeWidth={activeTab === 'expense' ? 2.5 : 2} />
-            <span className="text-[10px] font-black tracking-widest">記帳</span>
+          
+          <button 
+            onClick={() => setActiveTab('checklist')}
+            className={`flex flex-col items-center gap-1.5 transition-all duration-300 ${activeTab === 'checklist' ? 'text-shu scale-110' : 'text-stone-400 hover:text-stone-600'}`}
+          >
+            <div className={`p-2 rounded-2xl transition-colors ${activeTab === 'checklist' ? 'bg-shu/5' : ''}`}>
+              <ClipboardList size={22} strokeWidth={activeTab === 'checklist' ? 2.5 : 2} />
+            </div>
+            <span className="text-[10px] font-black uppercase tracking-widest">清單</span>
           </button>
-          <button onClick={() => setActiveTab('checklist')} className={`flex flex-col items-center gap-1 w-16 py-2 rounded-2xl transition-all duration-300 ${activeTab === 'checklist' ? 'text-sky-600 bg-sky-50' : 'text-stone-300 hover:text-sky-400'}`}>
-            <ClipboardList size={20} strokeWidth={activeTab === 'checklist' ? 2.5 : 2} />
-            <span className="text-[10px] font-black tracking-widest">清單</span>
+          
+          <button 
+            onClick={() => setActiveTab('expense')}
+            className={`flex flex-col items-center gap-1.5 transition-all duration-300 ${activeTab === 'expense' ? 'text-shu scale-110' : 'text-stone-400 hover:text-stone-600'}`}
+          >
+            <div className={`p-2 rounded-2xl transition-colors ${activeTab === 'expense' ? 'bg-shu/5' : ''}`}>
+              <Wallet size={22} strokeWidth={activeTab === 'expense' ? 2.5 : 2} />
+            </div>
+            <span className="text-[10px] font-black uppercase tracking-widest">記帳</span>
           </button>
         </div>
-      </div>
+      </nav>
     </div>
   );
 }
