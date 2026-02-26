@@ -39,7 +39,7 @@ const mockItinerary = [
         tags: [{ type: 'tip', text: '地址: 7 Chome-9-33 Hiyagon' }]
       },
       { 
-        id: 'd1e4', time: '19:00', title: '晚餐：北谷ダイニング ちゃぁぶ～', type: 'food', location: '北谷', 
+        id: 'd1e4', time: '19:00', title: '晚餐：北谷ダイニング ちゃぁぶ～', type: 'food', location: '614-1 Kuwae, Chatan, Nakagami District, Okinawa 904-0103日本', 
         phone: '050-5385-8401',
         description: '沖繩的第一餐！享受道地的沖繩料理。',
         tags: [{ type: 'food', text: '必點: 沖繩苦瓜炒蛋、海葡萄' }]
@@ -301,7 +301,7 @@ function ItineraryTab() {
   return (
     <div className="pb-28">
       {/* 氛圍頂部 */}
-      <div className="relative h-72 overflow-hidden shadow-2xl">
+      <div className="relative h-60 overflow-hidden shadow-2xl">
         <img 
           src="https://picsum.photos/seed/okinawa/1080/720" 
           alt="Okinawa" 
@@ -309,37 +309,39 @@ function ItineraryTab() {
           referrerPolicy="no-referrer"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-sumi via-sumi/20 to-transparent" />
-        <div className="absolute bottom-8 left-8 right-8">
+        <div className="absolute bottom-6 left-6 right-6">
           <div className="flex items-center gap-3 mb-2">
             <span className="px-3 py-1 bg-shu text-white text-[10px] font-black rounded-full uppercase tracking-widest shadow-lg">Okinawa 2026</span>
             <span className="text-white/60 text-[10px] font-bold tracking-widest uppercase">Spring Journey</span>
           </div>
           <h1 className="text-4xl font-serif font-black text-white tracking-tight mb-1">沖繩自駕之旅</h1>
-          <p className="text-white/70 text-sm font-medium">與好友們的五天四夜海島假期</p>
+          <p className="text-white/70 text-sm font-medium">五天四夜海島假期</p>
         </div>
       </div>
 
-      <div className="max-w-md mx-auto px-6 -mt-6 relative z-20">
-        {/* 日期切換器 */}
-        <div className="flex gap-3 overflow-x-auto pb-6 scrollbar-hide snap-x">
-          {mockItinerary.map((day, idx) => (
-            <button
-              key={day.id}
-              onClick={() => setActiveDayIdx(idx)}
-              className={`flex-shrink-0 snap-start w-20 h-24 rounded-2xl flex flex-col items-center justify-center transition-all duration-300 border-2 ${
-                activeDayIdx === idx 
-                  ? 'bg-white border-shu shadow-xl scale-105' 
-                  : 'bg-white/60 backdrop-blur-sm border-transparent text-stone-400'
-              }`}
-            >
-              <span className={`text-[10px] font-black uppercase tracking-widest mb-1 ${activeDayIdx === idx ? 'text-shu' : ''}`}>{day.dayLabel}</span>
-              <span className={`text-xl font-serif font-black ${activeDayIdx === idx ? 'text-sumi' : ''}`}>{day.date.split('-')[2]}</span>
-              <span className="text-[10px] font-bold mt-1 opacity-60">MAR</span>
-            </button>
-          ))}
+      <div className="max-w-md mx-auto relative z-20">
+        {/* 日期切換器 (固定在上方) */}
+        <div className="sticky top-0 z-30 bg-washi/95 backdrop-blur-md pt-4 pb-4 px-6 shadow-sm border-b border-stone-200/50">
+          <div className="flex gap-3 overflow-x-auto scrollbar-hide snap-x">
+            {mockItinerary.map((day, idx) => (
+              <button
+                key={day.id}
+                onClick={() => setActiveDayIdx(idx)}
+                className={`flex-shrink-0 snap-start w-16 h-20 rounded-2xl flex flex-col items-center justify-center transition-all duration-300 border-2 ${
+                  activeDayIdx === idx 
+                    ? 'bg-white border-shu shadow-md scale-105' 
+                    : 'bg-white/60 backdrop-blur-sm border-transparent text-stone-400'
+                }`}
+              >
+                <span className={`text-[9px] font-black uppercase tracking-widest mb-1 ${activeDayIdx === idx ? 'text-shu' : ''}`}>{day.dayLabel}</span>
+                <span className={`text-lg font-serif font-black ${activeDayIdx === idx ? 'text-sumi' : ''}`}>{day.date.split('-')[2]}</span>
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* 當日概況 */}
+        <div className="px-6 pt-6">
+          {/* 當日概況 */}
         <div className="bg-white rounded-3xl p-6 shadow-xl border border-stone-100 mb-8 relative overflow-hidden">
           <div className="absolute top-0 right-0 p-4 opacity-5"><Waves size={80} /></div>
           <div className="flex justify-between items-start mb-4">
@@ -367,6 +369,7 @@ function ItineraryTab() {
         <p className="text-[10px] text-stone-400 text-center mt-12 px-4 leading-relaxed font-medium">
           氣象來源：日本氣象廳 (JMA) 歷史平均數據。<br/>3 月沖繩早晚溫差大，建議採洋蔥式穿法。
         </p>
+        </div>
       </div>
     </div>
   );
