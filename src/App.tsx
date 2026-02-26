@@ -60,7 +60,7 @@ const mockItinerary = [
     themeColor: 'emerald', // 薄荷綠
     weather: { temp: '22°C', condition: '晴朗', icon: <Sun className="text-emerald-400" size={24} /> },
     events: [
-      { id: 'd2e1', time: '09:00', title: '起床準備', type: 'hotel', location: '民宿', description: '09:00 起床，預計 10:00 出門。' },
+      { id: 'd2e1', time: '09:00', title: 'Chill Chill 起床', type: 'hotel', location: '民宿', description: '09:00 起床，預計 10:00 出門。' },
       { 
         id: 'd2e2', time: '11:00', title: '波上宮', type: 'activity', location: '波上宮', 
         phone: '098-868-3697',
@@ -159,6 +159,7 @@ const mockItinerary = [
     themeColor: 'indigo', // 薰衣草紫
     weather: { temp: '19°C', condition: '稍有雲量', icon: <Cloud className="text-indigo-400" size={24} /> },
     events: [
+      { id: 'd5e0', time: '07:30', title: '回家 DAY 早點起床', type: 'hotel', location: '民宿', description: '07:30 起床，08:30 出門。' },
       { id: 'd5e1', time: '09:30', title: '玉泉洞', type: 'activity', location: '玉泉洞', phone: '098-949-7421', description: '日本第二大鐘乳石洞，非常壯觀。' },
       { id: 'd5e2', time: '11:30', title: 'ricoland Okinawa', type: 'shopping', location: 'ricoland Okinawa', phone: '098-943-3451', description: '機車部品專賣店採買。' },
       { 
@@ -253,7 +254,7 @@ function EventCard({ event, themeColor }: { event: any, themeColor: string, key?
             </div>
           )}
           
-          {event.location !== '那霸機場' && (
+          {event.location !== '那霸機場' && event.location !== '民宿' && (
             <div className="mt-1">
               <a 
                 href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}`}
@@ -421,7 +422,7 @@ function InfoTab() {
               </div>
             </div>
             <div>
-              <span className="inline-block px-2.5 py-1 bg-stone-100 text-stone-600 text-[10px] font-black rounded-md mb-3 uppercase tracking-wider">回程 3/15</span>
+              <span className="inline-block px-2.5 py-1 bg-blue-50 text-blue-600 text-[10px] font-black rounded-md mb-3 uppercase tracking-wider">回程 3/15</span>
               <div className="flex justify-between items-center">
                 <div className="text-xl font-serif font-black text-sumi">CI123</div>
                 <div className="text-right">
