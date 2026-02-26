@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Map, Info, Wallet, MapPin, Navigation, Phone, Plane, Home, Car, Sun, Cloud, Receipt, Plus, Trash2, Waves, Palmtree, CheckCircle2, Circle, ClipboardList, ExternalLink, AlertCircle, GripVertical } from 'lucide-react';
-import { motion, Reorder } from 'motion/react';
+import { motion, Reorder, useDragControls } from 'motion/react';
 
 // --- 1. 專屬行程資料 (包含導遊標籤、電話與氣象平均值) ---
 // 氣象資料來源：日本氣象廳 (JMA) 那霸觀測站 3 月份歷史平均氣溫 (約 16°C - 22°C)
@@ -551,6 +551,48 @@ const initialChecklist = [
 
 const CHECKLIST_VERSION = '1.2'; // 更新此版本號以強制所有使用者更新清單
 
+function ChecklistItem({ item, catName, toggleItem, deleteItem }: any) {
+  const dragControls = useDragControls();
+
+  return (
+    <Reorder.Item
+      value={item}
+      dragListener={false}
+      dragControls={dragControls}
+      className="flex items-center justify-between p-3 border-b border-emerald-50 last:border-0 group bg-white active:shadow-md transition-shadow"
+    >
+      <div className="flex items-center gap-2 flex-1">
+        <div 
+          className="cursor-grab active:cursor-grabbing text-stone-200 hover:text-emerald-300 transition-colors p-1"
+          onPointerDown={(e) => dragControls.start(e)}
+          style={{ touchAction: 'none' }}
+        >
+          <GripVertical size={16} />
+        </div>
+        <button
+          onClick={() => toggleItem(catName, item.id)}
+          className="flex items-center gap-3 flex-1 text-left"
+        >
+          {item.checked ? (
+            <CheckCircle2 size={20} className="text-emerald-500" />
+          ) : (
+            <Circle size={20} className="text-stone-200" />
+          )}
+          <span className={`text-sm font-bold transition-all ${item.checked ? 'text-stone-300 line-through' : 'text-stone-700'}`}>
+            {item.text}
+          </span>
+        </button>
+      </div>
+      <button
+        onClick={() => deleteItem(catName, item.id)}
+        className="text-stone-200 hover:text-rose-500 p-1 transition-colors"
+      >
+        <Trash2 size={16} />
+      </button>
+    </Reorder.Item>
+  );
+}
+
 function ChecklistTab() {
   const [categories, setCategories] = useState(() => {
     const saved = localStorage.getItem('okinawa_checklist');
@@ -660,36 +702,13 @@ function ChecklistTab() {
             <div className="bg-white rounded-3xl p-2 shadow-sm border border-emerald-50">
               <Reorder.Group axis="y" values={cat.items} onReorder={(newOrder) => handleReorder(cat.category, newOrder)} className="space-y-0">
                 {cat.items.map((item: any) => (
-                  <Reorder.Item 
+                  <ChecklistItem 
                     key={item.id} 
-                    value={item}
-                    className="flex items-center justify-between p-3 border-b border-emerald-50 last:border-0 group bg-white active:shadow-md transition-shadow"
-                  >
-                    <div className="flex items-center gap-2 flex-1">
-                      <div className="cursor-grab active:cursor-grabbing text-stone-200 hover:text-emerald-300 transition-colors">
-                        <GripVertical size={16} />
-                      </div>
-                      <button 
-                        onClick={() => toggleItem(cat.category, item.id)}
-                        className="flex items-center gap-3 flex-1 text-left"
-                      >
-                        {item.checked ? (
-                          <CheckCircle2 size={20} className="text-emerald-500" />
-                        ) : (
-                          <Circle size={20} className="text-stone-200" />
-                        )}
-                        <span className={`text-sm font-bold transition-all ${item.checked ? 'text-stone-300 line-through' : 'text-stone-700'}`}>
-                          {item.text}
-                        </span>
-                      </button>
-                    </div>
-                    <button 
-                      onClick={() => deleteItem(cat.category, item.id)}
-                      className="text-stone-200 hover:text-rose-500 p-1 transition-colors"
-                    >
-                      <Trash2 size={16} />
-                    </button>
-                  </Reorder.Item>
+                    item={item} 
+                    catName={cat.category} 
+                    toggleItem={toggleItem} 
+                    deleteItem={deleteItem} 
+                  />
                 ))}
               </Reorder.Group>
             </div>
