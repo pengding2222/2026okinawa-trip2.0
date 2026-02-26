@@ -244,9 +244,9 @@ function EventCard({ event, themeColor }: { event: any, themeColor: string, key?
           )}
 
           {event.tags && (
-            <div className="flex flex-wrap gap-1.5 mb-3">
+            <div className="flex flex-wrap gap-1.5 mb-2">
               {event.tags.map((tag: any, i: number) => (
-                <span key={i} className={`text-[9px] font-black px-2.5 py-1 rounded-md border uppercase tracking-widest ${getTagStyle(tag.type)}`}>
+                <span key={i} className={`text-[10px] font-black px-2 py-0.5 rounded-md border uppercase tracking-widest ${getTagStyle(tag.type)}`}>
                   {tag.text}
                 </span>
               ))}
@@ -378,10 +378,12 @@ function ItineraryTab() {
 // --- 4. 分頁元件：實用資訊 ---
 function InfoTab() {
   return (
-    <div className="pb-28 pt-10 max-w-md mx-auto px-6">
-      <h1 className="text-4xl font-serif font-black text-sumi mb-8 tracking-tight">旅行資訊</h1>
+    <div className="pb-28">
+      <div className="sticky top-0 z-30 bg-washi/95 backdrop-blur-md pt-6 pb-4 px-6 shadow-sm border-b border-stone-200/50">
+        <h1 className="text-3xl font-serif font-black text-sumi tracking-tight">旅行資訊</h1>
+      </div>
       
-      <div className="space-y-6">
+      <div className="space-y-6 px-6 pt-6">
         {/* VJW Reminder */}
         <section>
           <div className="bg-shu rounded-2xl p-4 shadow-lg text-white relative overflow-hidden">
@@ -697,10 +699,13 @@ function ChecklistTab() {
   };
 
   return (
-    <div className="pb-28 pt-10 max-w-md mx-auto px-6">
-      <h1 className="text-4xl font-serif font-black text-sumi mb-8 tracking-tight">行李清單</h1>
+    <div className="pb-28">
+      <div className="sticky top-0 z-30 bg-washi/95 backdrop-blur-md pt-6 pb-4 px-6 shadow-sm border-b border-stone-200/50">
+        <h1 className="text-3xl font-serif font-black text-sumi tracking-tight">行李清單</h1>
+      </div>
       
-      <form onSubmit={addItem} className="mb-10 space-y-3">
+      <div className="px-6 pt-6">
+        <form onSubmit={addItem} className="mb-8 space-y-3">
         <div className="flex gap-2">
           <select 
             value={activeCategory}
@@ -724,13 +729,13 @@ function ChecklistTab() {
         </div>
       </form>
 
-      <div className="space-y-10">
+      <div className="space-y-8">
         {categories.map((cat: any) => (
           <section key={cat.category}>
-            <h2 className="text-xs font-black text-ai uppercase tracking-widest mb-5 flex items-center gap-2">
+            <h2 className="text-xs font-black text-ai uppercase tracking-widest mb-4 flex items-center gap-2">
               <ClipboardList size={14} /> {cat.category}
             </h2>
-            <div className="bg-white rounded-3xl p-2 shadow-xl border border-stone-100">
+            <div className="bg-white rounded-2xl p-2 shadow-md border border-stone-100">
               <Reorder.Group axis="y" values={cat.items} onReorder={(newOrder) => handleReorder(cat.category, newOrder)} className="space-y-0">
                 {cat.items.map((item: any) => (
                   <ChecklistItem 
@@ -747,6 +752,7 @@ function ChecklistTab() {
         ))}
       </div>
     </div>
+  </div>
   );
 }
 
@@ -790,9 +796,9 @@ function ExpenseTab() {
   const totalTWD = Math.round(totalJPY * exchangeRate);
 
   return (
-    <div className="pb-28 pt-10 max-w-md mx-auto px-6">
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-4xl font-serif font-black text-sumi tracking-tight">旅行記帳</h1>
+    <div className="pb-28">
+      <div className="sticky top-0 z-30 bg-washi/95 backdrop-blur-md pt-6 pb-4 px-6 shadow-sm border-b border-stone-200/50 flex items-center justify-between">
+        <h1 className="text-3xl font-serif font-black text-sumi tracking-tight">旅行記帳</h1>
         <button 
           onClick={() => setIsEditingRate(!isEditingRate)}
           className="text-[10px] font-black bg-sakura text-shu px-4 py-2 rounded-full active:scale-95 transition-transform shadow-sm border border-shu/10"
@@ -801,7 +807,8 @@ function ExpenseTab() {
         </button>
       </div>
       
-      {isEditingRate && (
+      <div className="px-6 pt-6">
+        {isEditingRate && (
         <div className="mb-8 p-5 bg-white rounded-3xl border border-stone-100 shadow-xl animate-in fade-in slide-in-from-top-2">
           <label className="block text-[10px] font-black text-ai uppercase tracking-widest mb-3">設定日幣匯率 (台銀賣出價參考)</label>
           <div className="flex gap-2">
@@ -888,6 +895,7 @@ function ExpenseTab() {
             </div>
           ))
         )}
+      </div>
       </div>
     </div>
   );
