@@ -301,7 +301,7 @@ function ItineraryTab() {
   return (
     <div className="pb-28">
       {/* 氛圍頂部 */}
-      <div className="relative h-60 overflow-hidden shadow-2xl">
+      <div className="relative h-48 overflow-hidden shadow-2xl">
         <img 
           src="https://picsum.photos/seed/okinawa/1080/720" 
           alt="Okinawa" 
@@ -309,13 +309,13 @@ function ItineraryTab() {
           referrerPolicy="no-referrer"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-sumi via-sumi/20 to-transparent" />
-        <div className="absolute bottom-6 left-6 right-6">
-          <div className="flex items-center gap-3 mb-2">
-            <span className="px-3 py-1 bg-shu text-white text-[10px] font-black rounded-full uppercase tracking-widest shadow-lg">Okinawa 2026</span>
-            <span className="text-white/60 text-[10px] font-bold tracking-widest uppercase">Spring Journey</span>
+        <div className="absolute bottom-4 left-6 right-6">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="px-2 py-0.5 bg-shu text-white text-[9px] font-black rounded-full uppercase tracking-widest shadow-lg">Okinawa 2026</span>
+            <span className="text-white/60 text-[9px] font-bold tracking-widest uppercase">Spring Journey</span>
           </div>
-          <h1 className="text-4xl font-serif font-black text-white tracking-tight mb-1">沖繩自駕之旅</h1>
-          <p className="text-white/70 text-sm font-medium">五天四夜海島假期</p>
+          <h1 className="text-3xl font-serif font-black text-white tracking-tight mb-0.5">沖繩自駕之旅</h1>
+          <p className="text-white/70 text-xs font-medium">五天四夜海島假期</p>
         </div>
       </div>
 
@@ -340,21 +340,21 @@ function ItineraryTab() {
           </div>
         </div>
 
-        <div className="px-6 pt-6">
+        <div className="px-6 pt-4">
           {/* 當日概況 */}
-        <div className="bg-white rounded-3xl p-6 shadow-xl border border-stone-100 mb-8 relative overflow-hidden">
-          <div className="absolute top-0 right-0 p-4 opacity-5"><Waves size={80} /></div>
-          <div className="flex justify-between items-start mb-4">
+        <div className="bg-white rounded-2xl p-4 shadow-md border border-stone-100 mb-6 relative overflow-hidden">
+          <div className="absolute top-0 right-0 p-2 opacity-5"><Waves size={60} /></div>
+          <div className="flex justify-between items-center">
             <div>
-              <h2 className="text-2xl font-serif font-black text-sumi mb-1">{activeDay.locationName}</h2>
-              <p className="text-xs font-bold text-stone-400 uppercase tracking-widest">{activeDay.date}</p>
+              <h2 className="text-xl font-serif font-black text-sumi mb-0.5">{activeDay.locationName}</h2>
+              <p className="text-[10px] font-bold text-stone-400 uppercase tracking-widest">{activeDay.date}</p>
             </div>
             <div className="text-right">
-              <div className="flex items-center gap-2 justify-end mb-1">
-                {activeDay.weather.icon}
-                <span className="text-xl font-serif font-black text-sumi">{activeDay.weather.temp}</span>
+              <div className="flex items-center gap-1.5 justify-end mb-0.5">
+                {React.cloneElement(activeDay.weather.icon as React.ReactElement, { size: 18 })}
+                <span className="text-lg font-serif font-black text-sumi">{activeDay.weather.temp}</span>
               </div>
-              <p className="text-[10px] font-bold text-stone-400 uppercase tracking-widest">{activeDay.weather.condition}</p>
+              <p className="text-[9px] font-bold text-stone-400 uppercase tracking-widest">{activeDay.weather.condition}</p>
             </div>
           </div>
         </div>
@@ -384,21 +384,21 @@ function InfoTab() {
       <div className="space-y-6">
         {/* VJW Reminder */}
         <section>
-          <div className="bg-shu rounded-3xl p-6 shadow-xl text-white relative overflow-hidden">
-            <div className="absolute -right-4 -top-4 opacity-10 rotate-12"><AlertCircle size={100} /></div>
-            <h2 className="text-xl font-serif font-black mb-3 flex items-center gap-2">
-              <AlertCircle size={22} /> 入境必看！VJW 提醒
+          <div className="bg-shu rounded-2xl p-4 shadow-lg text-white relative overflow-hidden">
+            <div className="absolute -right-2 -top-2 opacity-10 rotate-12"><AlertCircle size={80} /></div>
+            <h2 className="text-lg font-serif font-black mb-2 flex items-center gap-1.5">
+              <AlertCircle size={18} /> 入境必看！VJW 提醒
             </h2>
-            <p className="text-sm font-medium leading-relaxed mb-6 opacity-90">
-              Visit Japan Web (VJW) 必須在出發前填寫完成，並將產出的 <span className="font-black underline decoration-white/40 underline-offset-4">QR Code 截圖備份</span>。入境時請直接出示截圖交由入境官掃描，可大幅縮短通關時間。
+            <p className="text-xs font-medium leading-relaxed mb-4 opacity-90">
+              Visit Japan Web (VJW) 必須在出發前填寫完成，並將產出的 <span className="font-black underline decoration-white/40 underline-offset-2">QR Code 截圖備份</span>。
             </p>
             <a 
               href="https://vjw-lp.digital.go.jp/zh-hant/" 
               target="_blank" 
               rel="noreferrer"
-              className="inline-flex items-center gap-2 bg-white text-shu px-5 py-3 rounded-2xl text-xs font-black shadow-lg active:scale-95 transition-transform"
+              className="inline-flex items-center gap-1.5 bg-white text-shu px-4 py-2 rounded-xl text-[10px] font-black shadow-md active:scale-95 transition-transform"
             >
-              前往 VJW 官方網站 <ExternalLink size={14} />
+              前往 VJW 官方網站 <ExternalLink size={12} />
             </a>
           </div>
         </section>
@@ -817,18 +817,18 @@ function ExpenseTab() {
         </div>
       )}
 
-      <div className="bg-shu rounded-[2rem] p-8 text-white mb-8 shadow-2xl relative overflow-hidden">
-        <div className="absolute -right-4 -top-4 opacity-10 rotate-12"><Waves size={140} /></div>
-        <p className="text-[10px] font-black text-sakura/60 mb-2 uppercase tracking-widest">總支出 (日幣 JPY)</p>
-        <div className="flex items-baseline gap-1 mb-6">
-          <span className="text-2xl font-serif font-medium">¥</span>
-          <span className="text-5xl font-serif font-black tracking-tighter">{totalJPY.toLocaleString()}</span>
+      <div className="bg-shu rounded-2xl p-6 text-white mb-6 shadow-xl relative overflow-hidden">
+        <div className="absolute -right-2 -top-2 opacity-10 rotate-12"><Waves size={100} /></div>
+        <p className="text-[9px] font-black text-sakura/60 mb-1 uppercase tracking-widest">總支出 (日幣 JPY)</p>
+        <div className="flex items-baseline gap-1 mb-4">
+          <span className="text-xl font-serif font-medium">¥</span>
+          <span className="text-4xl font-serif font-black tracking-tighter">{totalJPY.toLocaleString()}</span>
         </div>
-        <div className="pt-6 border-t border-white/10">
-          <p className="text-[10px] font-black text-sakura/60 mb-2 uppercase tracking-widest">預估台幣 (匯率 {exchangeRate})</p>
+        <div className="pt-4 border-t border-white/10">
+          <p className="text-[9px] font-black text-sakura/60 mb-1 uppercase tracking-widest">預估台幣 (匯率 {exchangeRate})</p>
           <div className="flex items-baseline gap-1 text-white">
-            <span className="text-sm font-medium">NT$</span>
-            <span className="text-2xl font-black">{totalTWD.toLocaleString()}</span>
+            <span className="text-xs font-medium">NT$</span>
+            <span className="text-xl font-black">{totalTWD.toLocaleString()}</span>
           </div>
         </div>
       </div>
@@ -896,6 +896,10 @@ function ExpenseTab() {
 // --- 主程式 ---
 export default function App() {
   const [activeTab, setActiveTab] = useState('itinerary');
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [activeTab]);
 
   return (
     <div className="min-h-screen bg-washi bg-pattern font-sans text-sumi selection:bg-shu/10">
