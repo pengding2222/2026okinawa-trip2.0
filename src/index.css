@@ -15,9 +15,8 @@
 
 @layer utilities {
   .bg-pattern {
-    background-image: radial-gradient(#bc2732 0.5px, transparent 0.5px);
+    background-image: radial-gradient(rgba(188, 39, 50, 0.15) 1px, transparent 1px);
     background-size: 24px 24px;
-    opacity: 0.03;
   }
   .pb-safe {
     padding-bottom: env(safe-area-inset-bottom, 16px);
