@@ -65,12 +65,30 @@ const mockItinerary = [
         id: 'd2e2', time: '11:00', title: '波上宮', type: 'activity', location: '波上宮', 
         phone: '098-868-3697',
         description: '沖繩八社之首，建在海邊懸崖上的美麗神社。',
-        tags: [{ type: 'tip', text: '注意：附近要找停車場！' }, { type: 'shopping', text: '必買: 書包御守' }]
+        tags: [
+          { type: 'shopping', text: '必買: 書包御守' },
+          { type: 'tip', text: '🅿️1號: 離橋上拍照近, 30分200円(無上限)' },
+          { type: 'tip', text: '🅿️2號: 40分200円(上限800円)' }
+        ],
+        customNavs: [
+          { label: '1號停車場', url: 'https://www.google.com/maps/search/?api=1&query=波之上立体駐車場' },
+          { label: '2號停車場', url: 'https://www.google.com/maps/search/?api=1&query=アップルパーク若狭１丁目第１' }
+        ]
       },
       { 
         id: 'd2e3', time: '13:00', title: '國際通 & 牧志市場', type: 'activity', location: '國際通', 
         description: '車停國際通。逛街採買伴手禮，午餐在這裡解決。',
-        tags: [{ type: 'food', text: '必吃: 花生豆腐、香檸汁、豬肉蛋飯糰' }]
+        tags: [
+          { type: 'food', text: '必吃: 花生豆腐、香檸汁、豬肉蛋飯糰' },
+          { type: 'tip', text: '🅿️1號: 第一優先(一蘭後), 整天800円' },
+          { type: 'tip', text: '🅿️2號: 12H內1200円' },
+          { type: 'tip', text: '🅿️3號: 唐吉訶德對面, 4H內1500円' }
+        ],
+        customNavs: [
+          { label: '1號停車場', url: 'https://www.google.com/maps/search/?api=1&query=テクニカルパーク牧志第3' },
+          { label: '2號停車場', url: 'https://www.google.com/maps/search/?api=1&query=沖縄教育出版駐車場' },
+          { label: '3號停車場', url: 'https://www.google.com/maps/search/?api=1&query=Kokusai+Doriniichibanchikai+Parking+Lot' }
+        ]
       },
       { 
         id: 'd2e4', time: '19:00', title: '晚餐：YAMASHiRO 豬排', type: 'food', location: 'とんかつレストランYAMASHiRO 首里店', 
@@ -145,7 +163,17 @@ const mockItinerary = [
       },
       { 
         id: 'd4e4', time: '16:00', title: '美國村', type: 'activity', location: '美國村', 
-        description: '逛街、看夕陽拍照，充滿異國風情。'
+        description: '逛街、看夕陽拍照，充滿異國風情。',
+        tags: [
+          { type: 'tip', text: '🅿️1號 Seaside: 免費' },
+          { type: 'tip', text: '🅿️2號 D Parking: 免費' },
+          { type: 'tip', text: '🅿️3號 永旺外: 免費' }
+        ],
+        customNavs: [
+          { label: '1號停車場', url: 'https://maps.app.goo.gl/Dn539BpjMqiN1X7v8' },
+          { label: '2號停車場', url: 'https://maps.app.goo.gl/RDHAmJRNtgTwaWL48' },
+          { label: '3號停車場', url: 'https://maps.app.goo.gl/rS1hDw6R2CGoJYjA9' }
+        ]
       },
       { 
         id: 'd4e5', time: '19:00', title: '晚餐：燒肉金城', type: 'food', location: '燒肉金城 北谷本店', 
@@ -258,7 +286,21 @@ function EventCard({ event, themeColor }: { event: any, themeColor: string, key?
             </div>
           )}
           
-          {event.location !== '那霸機場' && event.location !== '民宿' && (
+          {event.customNavs ? (
+            <div className="mt-2 flex flex-wrap gap-2">
+              {event.customNavs.map((nav: any, idx: number) => (
+                <a 
+                  key={idx}
+                  href={nav.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 ${styles.nav} rounded-xl text-[10px] font-black text-white transition-all shadow-md active:scale-95 uppercase tracking-widest`}
+                >
+                  <Navigation size={12} /> {nav.label}
+                </a>
+              ))}
+            </div>
+          ) : event.location !== '那霸機場' && event.location !== '民宿' && (
             <div className="mt-1">
               <a 
                 href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}`}
