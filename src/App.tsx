@@ -206,12 +206,19 @@ const mockItinerary = [
       { 
         id: 'd5e4', time: '17:30', title: 'ORIX 還車', type: 'transport', location: 'ORIX Rent-a-car Naha Airport', 
         phone: '098-851-0543',
-        description: '17:30 前務必還車，記得先加滿油！'
+        description: '提前 20 分鐘離開最後的景點前往加油\n務必在 17:30 前還車',
+        tags: [{ type: 'tip', text: '⚠️ 回程接駁車約 15 分鐘一班' }],
+        customNavs: [
+          { label: '⛽ENEOS 豐崎店', url: 'https://www.google.com/maps/search/?api=1&query=3-40+Toyosaki,+Tomigusuku,+Okinawa+901-0225日本' }
+        ]
       },
       { 
-        id: 'd5e5', time: '20:20', title: '搭機返台 (CI123)', type: 'transport', location: '那霸機場', 
-        description: '結束美好的旅程！20:20 起飛，預計 21:00 抵達台灣。',
-        tags: [{ type: 'tip', text: '免稅店最後採買機會' }]
+        id: 'd5e5', time: '20:20', title: '快樂回家', type: 'transport', location: '那霸機場', 
+        description: '結束美好的旅程！搭乘 CI123 航班 (20:20 起飛)，預計 21:00 抵達台灣。',
+        tags: [
+          { type: 'tip', text: '免稅店最後採買機會' },
+          { type: 'tip', text: '⚠️ 手提 7 公斤 託運 1 件 23 公斤' }
+        ]
       }
     ]
   }
@@ -529,11 +536,8 @@ function InfoTab() {
               <p className="text-sm font-bold text-sumi select-all leading-relaxed mb-3">
                 1-1174 Toyosaki, Tomigusuku, Okinawa 901-0225日本
               </p>
-              <p className="text-sm font-bold text-sumi select-all leading-relaxed mb-3 flex items-center gap-1.5">
+              <p className="text-sm font-bold text-sumi select-all leading-relaxed flex items-center gap-1.5">
                 <Phone size={14} className="text-stone-400" /> 098-851-0543
-              </p>
-              <p className="text-[11px] font-black text-shu bg-sakura/50 px-2.5 py-1.5 rounded-lg inline-block">
-                ⚠️ 回程接駁車約 15 分鐘一班
               </p>
             </div>
 
