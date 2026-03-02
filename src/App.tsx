@@ -20,17 +20,21 @@ const mockItinerary = [
     events: [
       { 
         id: 'd1e0', time: '11:00', title: '抵達桃園機場', type: 'transport', location: '桃園機場', 
-        description: '彭🚗 9:00 郭家集合 預計 10:30 前抵達山鼻停車場',
+        description: '彭🚗 9:00 郭家集合 預計 10:30 前抵達山鼻停車場\n搭乘 FD230 航班 (13:30起飛)',
         hideNav: true
       },
       { 
         id: 'd1e1', time: '15:55', title: '抵達那霸機場', type: 'transport', location: '那霸機場', 
-        description: '搭乘 FD230 航班 (13:30起飛)。',
+        description: '出關後依照指示牌前往 14 號站牌搭乘接駁車前往取車。',
         tags: [{ type: 'tip', text: '先去上個廁所再出關' }]
       },
       { 
         id: 'd1e2', time: '17:30', title: 'ORIX 取車', type: 'transport', location: 'ORIX Rent-a-car Naha Airport', 
-        description: '準備好台灣駕照、日文譯本、護照。\n出關後依照指示牌前往 14 號站牌搭乘接駁車前往取車。',
+        description: '準備好台灣駕照、日文譯本、護照。',
+        links: [
+          { text: '⚠️ 日本自駕注意事項', url: 'https://rental-car-tips.jp/tw/rules/' },
+          { text: 'YT📺：在日本自駕要注意的事', url: 'https://www.youtube.com/watch?v=vUDbQfkVGLU' }
+        ],
         hideNav: true
       },
       { 
@@ -282,6 +286,22 @@ function EventCard({ event, themeColor }: { event: any, themeColor: string, key?
                 <span key={i} className={`text-[10px] font-black px-2 py-0.5 rounded-md border uppercase tracking-widest ${getTagStyle(tag.type)}`}>
                   {tag.text}
                 </span>
+              ))}
+            </div>
+          )}
+
+          {event.links && (
+            <div className="flex flex-col gap-2 mb-3">
+              {event.links.map((link: any, idx: number) => (
+                <a 
+                  key={idx}
+                  href={link.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`inline-flex items-center w-fit gap-1.5 px-2.5 py-1.5 rounded-lg border text-[11px] font-black active:scale-95 transition-transform shadow-sm ${getTagStyle('tip')}`}
+                >
+                  <ExternalLink size={12} /> {link.text}
+                </a>
               ))}
             </div>
           )}
