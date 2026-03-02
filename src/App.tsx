@@ -19,30 +19,30 @@ const mockItinerary = [
     weather: { temp: '21°C', condition: '涼爽舒適', icon: <Sun className="text-rose-400" size={24} /> },
     events: [
       { 
+        id: 'd1e0', time: '11:00', title: '抵達桃園機場', type: 'transport', location: '桃園機場', 
+        description: '彭🚗 9:00 郭家集合 預計 10:30 前抵達山鼻停車場',
+        hideNav: true
+      },
+      { 
         id: 'd1e1', time: '15:55', title: '抵達那霸機場', type: 'transport', location: '那霸機場', 
         description: '搭乘 FD230 航班 (13:30起飛)。',
         tags: [{ type: 'tip', text: '先去上個廁所再出關' }]
       },
       { 
-        id: 'd1e2', time: '17:30', title: 'ORIX 租車取車', type: 'transport', location: 'ORIX Rent-a-car Naha Airport', 
-        phone: '098-851-0543',
-        description: '準備好台灣駕照、日文譯本、護照。我們這次租了兩台車！',
-        tags: [
-          { type: 'reservation', text: 'Honda Freed Hybrid: 247162932' },
-          { type: 'reservation', text: 'TOYOTA YARIS CROSS: 247162570' }
-        ]
+        id: 'd1e2', time: '17:30', title: 'ORIX 取車', type: 'transport', location: 'ORIX Rent-a-car Naha Airport', 
+        description: '準備好台灣駕照、日文譯本、護照。\n出關後依照指示牌前往 14 號站牌搭乘接駁車前往取車。',
+        hideNav: true
       },
       { 
         id: 'd1e3', time: '18:30', title: '民宿 Check in', type: 'hotel', location: 'CONDOMINIUM 紅-BIN-', 
-        phone: '090-9781-931',
-        description: '先到民宿放行李休息一下。',
+        phone: '090-9781-9313',
+        description: '先到民宿放行李休息一下。\n若時間不足，直接前往餐廳',
         tags: [{ type: 'tip', text: '地址: 7 Chome-9-33 Hiyagon' }]
       },
       { 
         id: 'd1e4', time: '19:00', title: '晚餐：北谷ダイニング ちゃぁぶ～', type: 'food', location: '614-1 Kuwae, Chatan, Nakagami District, Okinawa 904-0103日本', 
         phone: '050-5385-8401',
-        description: '沖繩的第一餐！享受道地的沖繩料理。',
-        tags: [{ type: 'food', text: '必點: 沖繩苦瓜炒蛋、海葡萄' }]
+        description: '沖繩的第一餐！人氣No.1 阿古豬涮涮鍋\n停車資訊🅿️：門口有停車格，若滿位附近有店家的空地可以停車'
       },
       { 
         id: 'd1e5', time: '21:00', title: 'AEON 永旺夢樂城', type: 'activity', location: 'AEON Okinawa Rycom', 
@@ -267,7 +267,7 @@ function EventCard({ event, themeColor }: { event: any, themeColor: string, key?
             <span className="text-[11px] font-bold tracking-wide">{event.location}</span>
           </div>
           
-          <p className="text-xs text-stone-600 leading-relaxed mb-3 font-medium">{event.description}</p>
+          <p className="text-xs text-stone-600 leading-relaxed mb-3 font-medium whitespace-pre-line">{event.description}</p>
           
           {event.phone && (
             <div className="flex items-center gap-1.5 text-ai mb-3 bg-ai/5 px-3 py-1.5 rounded-xl w-fit border border-ai/10">
@@ -300,7 +300,7 @@ function EventCard({ event, themeColor }: { event: any, themeColor: string, key?
                 </a>
               ))}
             </div>
-          ) : event.location !== '那霸機場' && event.location !== '民宿' && (
+          ) : event.location !== '那霸機場' && event.location !== '民宿' && !event.hideNav && (
             <div className="mt-1">
               <a 
                 href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}`}
@@ -488,8 +488,12 @@ function InfoTab() {
             <h3 className="text-lg font-serif font-black text-sumi mb-2">CONDOMINIUM 紅-BIN-</h3>
             <p className="text-xs font-bold text-stone-400 mb-5 uppercase tracking-widest">Check-in: 3/11 18:30</p>
             <div className="bg-washi p-4 rounded-2xl border border-stone-100">
-              <p className="text-[10px] font-black text-ai mb-2 uppercase tracking-widest">民宿地址</p>
-              <p className="text-sm font-bold text-sumi select-all leading-relaxed">7 Chome-9-33 Hiyagon, Okinawa, 904-2173日本</p>
+              <p className="text-sm font-bold text-sumi select-all leading-relaxed mb-3">
+                7 Chome-9-33 Hiyagon, Okinawa, 904-2173日本
+              </p>
+              <p className="text-sm font-bold text-sumi select-all leading-relaxed flex items-center gap-1.5">
+                <Phone size={14} className="text-stone-400" /> 090-9781-9313 <span className="text-xs text-stone-500 font-medium">（接待時間 9:00〜20:00）</span>
+              </p>
             </div>
           </div>
         </section>
@@ -500,6 +504,19 @@ function InfoTab() {
           </h2>
           <div className="bg-white rounded-3xl p-6 shadow-xl border border-stone-100">
             <h3 className="text-lg font-serif font-black text-sumi mb-4">ORIX Rent-a-car 那霸機場店</h3>
+            
+            <div className="bg-washi p-4 rounded-2xl border border-stone-100 mb-5">
+              <p className="text-sm font-bold text-sumi select-all leading-relaxed mb-3">
+                1-1174 Toyosaki, Tomigusuku, Okinawa 901-0225日本
+              </p>
+              <p className="text-sm font-bold text-sumi select-all leading-relaxed mb-3 flex items-center gap-1.5">
+                <Phone size={14} className="text-stone-400" /> 098-851-0543
+              </p>
+              <p className="text-[11px] font-black text-shu bg-sakura/50 px-2.5 py-1.5 rounded-lg inline-block">
+                ⚠️ 回程接駁車約 15 分鐘一班
+              </p>
+            </div>
+
             <div className="space-y-3">
               <div className="flex justify-between items-center bg-sakura/30 p-4 rounded-2xl border border-sakura/50">
                 <span className="text-sm font-bold text-sumi">Honda Freed Hybrid</span>
