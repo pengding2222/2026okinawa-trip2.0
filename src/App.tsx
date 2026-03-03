@@ -46,13 +46,16 @@ const mockItinerary = [
       { 
         id: 'd1e4', time: '19:00', title: '晚餐：北谷ダイニング ちゃぁぶ～', type: 'food', location: '614-1 Kuwae, Chatan, Nakagami District, Okinawa 904-0103日本', 
         phone: '050-5385-8401',
-        description: '沖繩的第一餐！人氣No.1 阿古豬涮涮鍋\n停車資訊🅿️：門口有停車格，若滿位附近有店家的空地可以停車'
+        description: '沖繩的第一餐！人氣No.1 阿古豬涮涮鍋\n🅿️：門口有停車格，若滿位附近有店家的空地可以停車'
       },
       { 
         id: 'd1e5', time: '21:00', title: 'AEON 永旺夢樂城', type: 'activity', location: 'AEON Okinawa Rycom', 
         phone: '098-930-0425',
         description: '吃飽後直接逛到關門！',
-        tags: [{ type: 'shopping', text: '必逛: 超市買宵夜水果' }]
+        links: [
+          { text: '【永旺夢樂城沖繩來客夢】必逛AEON Mall！美食交通、必買品牌大匯整', url: 'https://bobbyfun.tw/2024-01-07-2699/' },
+          { text: '沖繩AEON MALL永旺夢樂城來客夢：最新必買/折價券/交通/退稅指南', url: 'https://mimigo.tw/aeon-mall-okinawa-rycom/' }
+        ]
       }
     ]
   },
@@ -100,7 +103,14 @@ const mockItinerary = [
         description: '搭電車前往首里吃超人氣炸豬排。',
         tags: [{ type: 'food', text: '必點: 頂級黑豚炸豬排定食' }]
       },
-      { id: 'd2e5', time: '21:00', title: 'AEON / 回家', type: 'activity', location: 'AEON', phone: '098-930-0425', description: '回家路上逛超商，今天要早點睡！' }
+      { 
+        id: 'd2e5', time: '21:00', title: 'AEON / 回家', type: 'activity', location: 'AEON', 
+        phone: '098-930-0425', 
+        description: '回家路上逛超商＆超市，買隔天的早餐\n今天要早點睡！',
+        customNavs: [
+          { label: '導航至此', url: 'https://maps.app.goo.gl/VSu1NzJym1epKQS7A' }
+        ]
+      }
     ]
   },
   {
@@ -112,23 +122,27 @@ const mockItinerary = [
     weather: { temp: '20°C', condition: '海風稍強', icon: <Waves className="text-sky-400" size={24} /> },
     events: [
       { 
-        id: 'd3e1', time: '07:30', title: '早起出發', type: 'hotel', location: '民宿', 
-        description: '07:30 起床，08:30 出門前往北部。強烈建議出門前查看導航，若高速公路大塞車請改走「國道58號」！',
+        id: 'd3e1', time: '07:00', title: '早起出發', type: 'hotel', location: '民宿', 
+        description: '07:00 起床 08:00 出門前往北部，輪流開車補眠。\n塞車情況下預計要 2 小時才會到',
         tags: [{ type: 'tip', text: '⚠️ 北上高速公路大塞車預警' }]
       },
       { 
-        id: 'd3e2', time: '09:30', title: '古宇利海洋塔', type: 'activity', location: '古宇利島', 
+        id: 'd3e2', time: '10:00', title: '古宇利島', type: 'activity', location: '古宇利島', 
         phone: '0980-56-1616',
         description: '導航位置設定為停車場。可以去古宇利海灘走走，看跨海大橋。'
       },
       { 
-        id: 'd3e3', time: '11:30', title: '午餐：Kouri Shrimp 蝦蝦飯', type: 'food', location: 'Kouri Shrimp', 
-        description: '11:00 開始營業，超人氣夏威夷風蒜香蝦蝦飯。預計 12:30 離開。',
-        tags: [{ type: 'food', text: '必點: 蒜香奶油蝦蝦飯' }]
+        id: 'd3e3', time: '11:30', title: '午餐：蝦蝦飯 / しらさ食堂', type: 'food', location: '古宇利島', 
+        description: '午餐有兩個選項，看當天心情決定！\n🍤 Kouri Shrimp：超人氣夏威夷風蒜香蝦蝦飯\n🍚 しらさ食堂：古宇利島必吃海鮮！滿滿新鮮海膽丼飯與海鮮定食',
+        tags: [{ type: 'food', text: '必點: 蒜香奶油蝦蝦飯' }, { type: 'food', text: '必吃: 海膽丼飯' }],
+        customNavs: [
+          { label: '🦐 Kouri Shrimp', url: 'https://www.google.com/maps/search/?api=1&query=Kouri+Shrimp' },
+          { label: '🍚 しらさ食堂', url: 'https://www.google.com/maps/search/?api=1&query=しらさ食堂' }
+        ]
       },
       { 
         id: 'd3e4', time: '13:00', title: 'Shinmei Coffee', type: 'food', location: 'Shinmei Coffee Okinawa', 
-        description: '買杯飲料解解渴。',
+        description: '質感文青咖啡廳，前往水族館前來杯招牌黑糖珍奶與職人咖啡，享受悠閒下午茶！',
         tags: [{ type: 'food', text: '必喝: 黑糖珍奶' }]
       },
       { 
@@ -138,12 +152,25 @@ const mockItinerary = [
         tags: [{ type: 'tip', text: '15:00 有黑潮之海鯨鯊餵食秀！' }]
       },
       { 
-        id: 'd3e6', time: '17:00', title: '許田休息站', type: 'food', location: '許田休息站', 
+        id: 'd3e6', time: '18:00', title: '許田休息站', type: 'food', location: '許田休息站', 
         phone: '0980-54-0880',
-        description: '回程順路休息。注意傍晚南下高速公路正值塞車高峰！',
-        tags: [{ type: 'food', text: '必吃: 現炸天婦羅' }, { type: 'tip', text: '⚠️ 留意南下塞車路況' }]
+        description: '回程順路休息，視當天時間與體力決定是否前往。\n注意傍晚南下高速公路正值塞車高峰！',
+        isOptional: true,
+        tags: [{ type: 'tip', text: '💡 彈性行程' }, { type: 'food', text: '必吃: 現炸天婦羅' }, { type: 'tip', text: '⚠️ 留意南下塞車路況' }]
       },
-      { id: 'd3e7', time: '21:00', title: 'MEGA唐吉軻德 宇流麻店', type: 'shopping', location: 'MEGA唐吉軻德 宇流麻店', phone: '0570-054-511', description: '有空再去，晚上可以去居酒屋小酌。' }
+      { 
+        id: 'd3e7', time: '19:30', title: '晚餐：居酒屋', type: 'food', location: '居酒屋', 
+        description: '晚餐有兩個居酒屋選項：\n🍢 選手1：沖縄食材と炉端串焼 ミハマノアシドリ (車停美國村免費停車場)\n🏮 選手2：金波銀波 (營業到 22:45)',
+        customNavs: [
+          { label: '🍢 ミハマノアシドリ', url: 'https://maps.app.goo.gl/Js1jhaNPXFMv1XUD8' },
+          { label: '🏮 金波銀波', url: 'https://maps.app.goo.gl/A1fPHF32K6csFmir9' }
+        ]
+      },
+      { 
+        id: 'd3e8', time: '21:30', title: 'MEGA唐吉軻德 宇流麻店', type: 'shopping', location: 'MEGA唐吉軻德 宇流麻店', 
+        phone: '0570-054-511', 
+        description: '中部超大型 MEGA 店鋪，商品超齊全！\n營業到凌晨 4 點，半夜睡不著直接來把它給逛爛！' 
+      }
     ]
   },
   {
@@ -162,8 +189,11 @@ const mockItinerary = [
       },
       { 
         id: 'd4e3', time: '14:00', title: '港川外人住宅', type: 'activity', location: '港川外人住宅', 
-        description: '充滿美式復古風情的小聚落，很多特色甜點店。預計停留 1-1.5 小時。',
-        tags: [{ type: 'food', text: '必吃: oHacorte 水果塔' }]
+        description: '美式復古老屋聚落，可預約 THE FLAVOR DESIGN 製作專屬客製化香水。',
+        tags: [{ type: 'food', text: '必吃: oHacorte 水果塔' }],
+        customNavs: [
+          { label: '🅿️ 停車場', url: 'https://share.google/xT3hkMhV6U6zI79Mj' }
+        ]
       },
       { 
         id: 'd4e4', time: '16:00', title: '美國村', type: 'activity', location: '美國村', 
@@ -182,7 +212,7 @@ const mockItinerary = [
       { 
         id: 'd4e5', time: '19:00', title: '晚餐：燒肉金城', type: 'food', location: '燒肉金城 北谷本店', 
         phone: '098-926-1611',
-        description: '晚餐吃石垣牛燒肉犒賞自己！',
+        description: '2小時石垣牛吃到飽，CP值極高！\n🅿️ 附設免費專用停車場',
         tags: [{ type: 'food', text: '必點: 特選石垣牛拼盤' }]
       }
     ]
@@ -195,18 +225,33 @@ const mockItinerary = [
     themeColor: 'indigo', // 薰衣草紫
     weather: { temp: '19°C', condition: '稍有雲量', icon: <Cloud className="text-indigo-400" size={24} /> },
     events: [
-      { id: 'd5e0', time: '07:30', title: '回家 DAY 早點起床', type: 'hotel', location: '民宿', description: '07:30 起床，08:30 出門。' },
-      { id: 'd5e1', time: '09:30', title: '玉泉洞', type: 'activity', location: '玉泉洞', phone: '098-949-7421', description: '日本第二大鐘乳石洞，非常壯觀。' },
-      { id: 'd5e2', time: '11:30', title: 'ricoland Okinawa', type: 'shopping', location: 'ricoland Okinawa', phone: '098-943-3451', description: '機車部品專賣店採買。' },
+      { id: 'd5e0', time: '07:00', title: '回家 DAY 早點起床', type: 'hotel', location: '民宿', description: '07:00 起床，08:00 出門。' },
       { 
-        id: 'd5e3', time: '13:00', title: '瀨長島 & A&W漢堡', type: 'food', location: '瀨長島 Umikaji Terrace', 
-        description: '純白色的希臘風建築，吃漢堡、看飛機起降。',
-        tags: [{ type: 'food', text: '必吃: A&W 麥根沙士、圈圈薯條' }]
+        id: 'd5e1', time: '09:30', title: '玉泉洞', type: 'activity', location: '玉泉洞', 
+        phone: '098-949-7421', 
+        description: '日本第二大鐘乳石洞與沖繩世界文化王國，體驗琉球傳統文化與太鼓秀！\n預計停留時間：2 - 2.5 小時',
+        links: [
+          { text: '【2026沖繩玉泉洞】日本第二大鐘乳洞！沖繩世界文化王國門票交通一日遊', url: 'https://bobbyfun.tw/2024-01-11-2733/' }
+        ]
+      },
+      { 
+        id: 'd5e_aw', time: '12:30', title: '午餐：A&W 糸満店', type: 'food', location: 'A&W 糸満店', 
+        description: '沖繩必吃美式速食，招牌麥根沙士配圈圈薯條超對味！'
+      },
+      { 
+        id: 'd5e3', time: '14:00', title: '瀨長島', type: 'activity', location: '瀨長島 Umikaji Terrace', 
+        description: '純白希臘風建築與無敵海景，還能近距離觀賞飛機起降。\n不排隊吃東西的話預計 1 小時可以離開'
+      },
+      { 
+        id: 'd5e2', time: '15:30', title: 'ricoland Okinawa', type: 'shopping', location: 'ricoland Okinawa', 
+        phone: '098-943-3451', 
+        description: '機車部品專賣店採買。',
+        tags: [{ type: 'tip', text: '⚠️ 16:30 一定要離開' }]
       },
       { 
         id: 'd5e4', time: '17:30', title: 'ORIX 還車', type: 'transport', location: 'ORIX Rent-a-car Naha Airport', 
         phone: '098-851-0543',
-        description: '提前 20 分鐘離開最後的景點前往加油\n務必在 17:30 前還車',
+        description: '提前 30 分鐘離開最後的景點前往加油\n務必在 17:30 前還車',
         tags: [{ type: 'tip', text: '⚠️ 回程接駁車約 15 分鐘一班' }],
         customNavs: [
           { label: '⛽ENEOS 豐崎店', url: 'https://www.google.com/maps/search/?api=1&query=3-40+Toyosaki,+Tomigusuku,+Okinawa+901-0225日本' }
@@ -259,7 +304,7 @@ function EventCard({ event, themeColor }: { event: any, themeColor: string, key?
   const styles = getThemeStyles();
 
   return (
-    <div className={`bg-white rounded-2xl p-4 shadow-md border ${styles.border} mb-3 relative overflow-hidden group active:scale-[0.98] transition-all`}>
+    <div className={`bg-white rounded-2xl p-4 shadow-md border ${styles.border} mb-3 relative overflow-hidden group active:scale-[0.98] transition-all ${event.isOptional ? 'opacity-85 border-dashed bg-stone-50/50' : ''}`}>
       <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${event.type === 'food' ? 'bg-orange-400' : event.type === 'hotel' ? 'bg-cyan-400' : event.type === 'transport' ? 'bg-blue-400' : 'bg-emerald-400'}`} />
       
       <div className="flex items-start gap-4 pl-1">
@@ -632,6 +677,7 @@ const initialChecklist = [
       { id: 'c5-3', text: '刮鬍刀', checked: false },
       { id: 'c5-4', text: '隱形眼鏡 / 藥水', checked: false },
       { id: 'c5-5', text: '衛生紙 / 濕紙巾', checked: false },
+      { id: 'c5-6', text: '洗衣袋', checked: false },
     ]
   },
   {
