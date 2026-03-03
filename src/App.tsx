@@ -192,7 +192,7 @@ const mockItinerary = [
         description: '美式復古老屋聚落，可預約 THE FLAVOR DESIGN 製作專屬客製化香水。',
         tags: [{ type: 'food', text: '必吃: oHacorte 水果塔' }],
         customNavs: [
-          { label: '🅿️ 停車場', url: 'https://share.google/xT3hkMhV6U6zI79Mj' }
+          { label: '🅿️ 停車場', url: 'https://maps.app.goo.gl/4rm6tqWCQacSMoWr5' }
         ]
       },
       { 
