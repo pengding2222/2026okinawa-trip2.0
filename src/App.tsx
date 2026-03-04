@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Map, Info, Wallet, MapPin, Navigation, Phone, Plane, Home, Car, Sun, Cloud, Receipt, Plus, Trash2, Waves, Palmtree, CheckCircle2, Circle, ClipboardList, ExternalLink, AlertCircle, GripVertical } from 'lucide-react';
+import { Map, Info, Wallet, MapPin, Navigation, Phone, Plane, Home, Car, Sun, Cloud, Receipt, Plus, Trash2, Waves, Palmtree, CheckCircle2, Circle, ClipboardList, ExternalLink, AlertCircle, GripVertical, CloudRain, CloudLightning, Snowflake, Umbrella, CloudSun, CloudFog } from 'lucide-react';
 import { motion, Reorder, useDragControls } from 'motion/react';
 
 // --- 1. 專屬行程資料 (包含導遊標籤、電話與氣象平均值) ---
@@ -394,6 +394,55 @@ function EventCard({ event, themeColor }: { event: any, themeColor: string, key?
 function ItineraryTab() {
   const [activeDayIdx, setActiveDayIdx] = useState(0);
   const activeDay = mockItinerary[activeDayIdx];
+  const [weatherData, setWeatherData] = useState<Record<string, any>>({});
+
+  useEffect(() => {
+    const fetchWeather = async () => {
+      try {
+        // Fetch 16-day forecast for Naha, Okinawa from Open-Meteo
+        const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=26.2124&longitude=127.6809&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FTokyo&forecast_days=16');
+        const data = await res.json();
+        
+        const newWeatherData: Record<string, any> = {};
+        data.daily.time.forEach((date: string, index: number) => {
+          newWeatherData[date] = {
+            maxTemp: Math.round(data.daily.temperature_2m_max[index]),
+            minTemp: Math.round(data.daily.temperature_2m_min[index]),
+            precipProb: data.daily.precipitation_probability_max[index],
+            code: data.daily.weather_code[index]
+          };
+        });
+        setWeatherData(newWeatherData);
+      } catch (error) {
+        console.error("Failed to fetch weather", error);
+      }
+    };
+    fetchWeather();
+  }, []);
+
+  const getWeatherDesc = (code: number) => {
+    if (code === 0) return '晴朗';
+    if (code === 1 || code === 2) return '晴時多雲';
+    if (code === 3) return '陰天';
+    if (code >= 45 && code <= 48) return '霧';
+    if (code >= 51 && code <= 55) return '毛毛雨';
+    if (code >= 61 && code <= 65) return '雨天';
+    if (code >= 71 && code <= 77) return '下雪';
+    if (code >= 80 && code <= 82) return '陣雨';
+    if (code >= 95) return '雷雨';
+    return '多雲';
+  };
+
+  const getWeatherIcon = (code: number, className: string) => {
+    if (code === 0) return <Sun size={18} className={className} />;
+    if (code === 1 || code === 2) return <CloudSun size={18} className={className} />;
+    if (code === 3) return <Cloud size={18} className={className} />;
+    if (code >= 45 && code <= 48) return <CloudFog size={18} className={className} />;
+    if ((code >= 51 && code <= 65) || (code >= 80 && code <= 82)) return <CloudRain size={18} className={className} />;
+    if (code >= 71 && code <= 77) return <Snowflake size={18} className={className} />;
+    if (code >= 95) return <CloudLightning size={18} className={className} />;
+    return <Cloud size={18} className={className} />;
+  };
 
   const getThemeBg = () => {
     switch (activeDay.themeColor) {
@@ -460,6 +509,16 @@ function ItineraryTab() {
         </div>
 
         <div className="px-6 pt-4">
+          {/* 天氣資訊列 */}
+          <div className="flex justify-between items-center mb-4">
+            <p className="text-[10px] text-stone-500 flex items-center gap-1 font-bold">
+              <CloudRain size={12} /> 即時天氣自動更新 (來源: Open-Meteo)
+            </p>
+            <a href="https://tenki.jp/forecast/10/50/9110/47201/" target="_blank" rel="noreferrer" className="text-[10px] bg-blue-50 text-blue-600 px-2 py-1 rounded-md font-black flex items-center gap-1 shadow-sm active:scale-95 transition-transform uppercase tracking-widest">
+              查看 tenki.jp 預報
+            </a>
+          </div>
+
           {/* 當日概況 */}
         <div className="bg-white rounded-2xl p-4 shadow-md border border-stone-100 mb-6 relative overflow-hidden">
           <div className="absolute top-0 right-0 p-2 opacity-5"><Waves size={60} /></div>
@@ -470,10 +529,25 @@ function ItineraryTab() {
             </div>
             <div className="text-right">
               <div className="flex items-center gap-1.5 justify-end mb-0.5">
-                {React.cloneElement(activeDay.weather.icon as React.ReactElement, { size: 18 })}
-                <span className="text-lg font-serif font-black text-sumi">{activeDay.weather.temp}</span>
+                {weatherData[activeDay.date] 
+                  ? getWeatherIcon(weatherData[activeDay.date].code, "text-stone-600") 
+                  : React.cloneElement(activeDay.weather.icon as React.ReactElement, { size: 18, className: "text-stone-600" })}
+                <span className="text-lg font-serif font-black text-sumi">
+                  {weatherData[activeDay.date] 
+                    ? `${weatherData[activeDay.date].minTemp}~${weatherData[activeDay.date].maxTemp}°C` 
+                    : activeDay.weather.temp}
+                </span>
               </div>
-              <p className="text-[9px] font-bold text-stone-400 uppercase tracking-widest">{activeDay.weather.condition}</p>
+              <div className="flex items-center justify-end gap-2">
+                <p className="text-[9px] font-bold text-stone-400 uppercase tracking-widest">
+                  {weatherData[activeDay.date] ? getWeatherDesc(weatherData[activeDay.date].code) : activeDay.weather.condition}
+                </p>
+                {weatherData[activeDay.date] && weatherData[activeDay.date].precipProb !== null && (
+                  <p className="text-[9px] font-bold text-blue-500 uppercase tracking-widest flex items-center gap-0.5">
+                    <Umbrella size={10} /> {weatherData[activeDay.date].precipProb}%
+                  </p>
+                )}
+              </div>
             </div>
           </div>
         </div>
