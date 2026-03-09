@@ -152,13 +152,6 @@ const mockItinerary = [
         tags: [{ type: 'tip', text: '15:00 有黑潮之海鯨鯊餵食秀！' }]
       },
       { 
-        id: 'd3e6', time: '18:00', title: '許田休息站', type: 'food', location: '許田休息站', 
-        phone: '0980-54-0880',
-        description: '回程順路休息，視當天時間與體力決定是否前往。\n注意傍晚南下高速公路正值塞車高峰！',
-        isOptional: true,
-        tags: [{ type: 'tip', text: '💡 彈性行程' }, { type: 'food', text: '必吃: 現炸天婦羅' }, { type: 'tip', text: '⚠️ 留意南下塞車路況' }]
-      },
-      { 
         id: 'd3e7', time: '19:00', title: '晚餐：焼肉もとぶ牧場 もとぶ店', type: 'food', location: '沖繩縣國頭郡本部町大濱881-1', 
         phone: '0980-51-6777',
         description: '牧場直營的高級和牛燒肉店！必吃入口即化的「本部牛」，肉質鮮甜油脂豐富，是沖繩北部極具代表性的必吃美食。',
@@ -216,6 +209,15 @@ const mockItinerary = [
         customNavs: [
           { label: '🍢 ミハマノアシドリ', url: 'https://maps.app.goo.gl/Js1jhaNPXFMv1XUD8' },
           { label: '🏮 金波銀波', url: 'https://maps.app.goo.gl/A1fPHF32K6csFmir9' }
+        ]
+      },
+      { 
+        id: 'd4e6', time: '21:00', title: 'AEON 永旺夢樂城', type: 'activity', location: 'AEON Okinawa Rycom', 
+        phone: '098-930-0425',
+        description: '想不到又是AEON吧',
+        links: [
+          { text: '【永旺夢樂城沖繩來客夢】必逛AEON Mall！美食交通、必買品牌大匯整', url: 'https://bobbyfun.tw/2024-01-07-2699/' },
+          { text: '沖繩AEON MALL永旺夢樂城來客夢：最新必買/折價券/交通/退稅指南', url: 'https://mimigo.tw/aeon-mall-okinawa-rycom/' }
         ]
       }
     ]
