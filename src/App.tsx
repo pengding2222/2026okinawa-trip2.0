@@ -211,8 +211,8 @@ const mockItinerary = [
         ]
       },
       { 
-        id: 'd4e5', time: '19:00', title: '晚餐：居酒屋', type: 'food', location: '居酒屋', 
-        description: '晚餐有兩個居酒屋選項：\n🍢 選手1：沖縄食材と炉端串焼 ミハマノアシドリ (車停美國村免費停車場)\n🏮 選手2：金波銀波 (營業到 22:45)',
+        id: 'd4e5', time: '彈性', title: '晚餐：現場討論', type: 'food', location: '美國村周邊', 
+        description: '逛累了，想吃什麼現場討論！\n備用選項：\n🍢 選手1：沖縄食材と炉端串焼 ミハマノアシドリ (車停美國村免費停車場)\n🏮 選手2：金波銀波 (營業到 22:45)',
         customNavs: [
           { label: '🍢 ミハマノアシドリ', url: 'https://maps.app.goo.gl/Js1jhaNPXFMv1XUD8' },
           { label: '🏮 金波銀波', url: 'https://maps.app.goo.gl/A1fPHF32K6csFmir9' }
