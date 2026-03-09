@@ -159,11 +159,12 @@ const mockItinerary = [
         tags: [{ type: 'tip', text: '💡 彈性行程' }, { type: 'food', text: '必吃: 現炸天婦羅' }, { type: 'tip', text: '⚠️ 留意南下塞車路況' }]
       },
       { 
-        id: 'd3e7', time: '19:30', title: '晚餐：居酒屋', type: 'food', location: '居酒屋', 
-        description: '晚餐有兩個居酒屋選項：\n🍢 選手1：沖縄食材と炉端串焼 ミハマノアシドリ (車停美國村免費停車場)\n🏮 選手2：金波銀波 (營業到 22:45)',
+        id: 'd3e7', time: '19:00', title: '晚餐：焼肉もとぶ牧場 もとぶ店', type: 'food', location: '沖繩縣國頭郡本部町大濱881-1', 
+        phone: '0980-51-6777',
+        description: '牧場直營的高級和牛燒肉店！必吃入口即化的「本部牛」，肉質鮮甜油脂豐富，是沖繩北部極具代表性的必吃美食。',
+        tags: [{ type: 'food', text: '必吃: 本部牛燒肉' }],
         customNavs: [
-          { label: '🍢 ミハマノアシドリ', url: 'https://maps.app.goo.gl/Js1jhaNPXFMv1XUD8' },
-          { label: '🏮 金波銀波', url: 'https://maps.app.goo.gl/A1fPHF32K6csFmir9' }
+          { label: '導航至此', url: 'https://maps.app.goo.gl/BcfTeqJovVZHUhUa6' }
         ]
       },
       { 
@@ -210,10 +211,12 @@ const mockItinerary = [
         ]
       },
       { 
-        id: 'd4e5', time: '19:00', title: '晚餐：燒肉金城', type: 'food', location: '燒肉金城 北谷本店', 
-        phone: '098-926-1611',
-        description: '2小時石垣牛吃到飽，CP值極高！\n🅿️ 附設免費專用停車場',
-        tags: [{ type: 'food', text: '必點: 特選石垣牛拼盤' }]
+        id: 'd4e5', time: '19:00', title: '晚餐：居酒屋', type: 'food', location: '居酒屋', 
+        description: '晚餐有兩個居酒屋選項：\n🍢 選手1：沖縄食材と炉端串焼 ミハマノアシドリ (車停美國村免費停車場)\n🏮 選手2：金波銀波 (營業到 22:45)',
+        customNavs: [
+          { label: '🍢 ミハマノアシドリ', url: 'https://maps.app.goo.gl/Js1jhaNPXFMv1XUD8' },
+          { label: '🏮 金波銀波', url: 'https://maps.app.goo.gl/A1fPHF32K6csFmir9' }
+        ]
       }
     ]
   },
