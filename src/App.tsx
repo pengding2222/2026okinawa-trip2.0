@@ -25,8 +25,11 @@ const mockItinerary = [
       },
       { 
         id: 'd1e1', time: '15:55', title: '抵達那霸機場', type: 'transport', location: '那霸機場', 
-        description: '出關後依照指示牌前往 14 號站牌搭乘接駁車前往取車。',
-        tags: [{ type: 'tip', text: '先去上個廁所再出關' }]
+        description: '出關後依照指示牌前往 11 號站牌搭乘接駁車前往取車。',
+        tags: [{ type: 'tip', text: '先去上個廁所再出關' }],
+        links: [
+          { text: '接駁車搭乘走法', url: 'https://car.orix.co.jp/tw/transfer/777.html' }
+        ]
       },
       { 
         id: 'd1e2', time: '17:30', title: 'ORIX 取車', type: 'transport', location: 'ORIX Rent-a-car Naha Airport', 
